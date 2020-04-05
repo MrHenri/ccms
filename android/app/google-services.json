@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "84728904997",
+    "firebase_url": "https://ccms-cell.firebaseio.com",
+    "project_id": "ccms-cell",
+    "storage_bucket": "ccms-cell.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84728904997:android:cd272f9981438191f3aecc",
+        "android_client_info": {
+          "package_name": "com.rique.ccms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84728904997-agri7pbg8ttig2h8bhp7f6tfbr07f5n4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAocdfd5U6CwcbLJEf6O3NFLPaYW4LpOoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "84728904997-agri7pbg8ttig2h8bhp7f6tfbr07f5n4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
