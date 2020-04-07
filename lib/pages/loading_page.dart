@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingPage extends StatefulWidget {
-  LoadingPage({Key key}) : super(key: key);
-
   @override
   _LoadingPageState createState() => _LoadingPageState();
 }
@@ -13,7 +11,7 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 10),(){
+    Future.delayed(const Duration(seconds: 2),(){
       initiateApp();
     });
   }
