@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-class LoginButtonContainer extends StatefulWidget {
-  LoginButtonContainer({Key key}) : super(key: key);
+class ButtonCustomizedContainer extends StatefulWidget {
+  final String text;
+  ButtonCustomizedContainer({Key key, this.text}) : super(key: key);
 
   @override
-  _LoginButtonContainerState createState() => _LoginButtonContainerState();
+  _ButtonCustomizedContainerState createState() => _ButtonCustomizedContainerState();
 }
 
-class _LoginButtonContainerState extends State<LoginButtonContainer> {
+class _ButtonCustomizedContainerState extends State<ButtonCustomizedContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 30, bottom: 20),
+      margin: EdgeInsets.only(top: 20, bottom: 40),
       width: MediaQuery.of(context).size.width/1.8,
       height: 50,
       decoration: BoxDecoration(
@@ -27,7 +28,7 @@ class _LoginButtonContainerState extends State<LoginButtonContainer> {
           borderRadius: BorderRadius.circular(90)
         ),
         child: Text(
-          "LOGIN",
+          widget.text,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,

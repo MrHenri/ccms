@@ -1,6 +1,7 @@
 import 'package:ccms/pages/home_page.dart';
 import 'package:ccms/pages/loading_page.dart';
 import 'package:ccms/pages/login_page.dart';
+import 'package:ccms/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(SmtApp());
@@ -14,6 +15,7 @@ class SmtApp extends StatelessWidget {
       routes: {
         '/': (context) => LoadingPage(),
         '/login': (context) => LoginPage(),
+        '/signup': (context) => SignupPage(),
         '/home': (context) => HomePage(),
       },
     );

@@ -14,6 +14,8 @@ class _ForgotPasswordContainerState extends State<ForgotPasswordContainer> {
       alignment: Alignment.centerRight,
       margin: EdgeInsets.only(right: 32),
       child: FlatButton(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         onPressed: (){},
         child: Text(
           "Esqueceu a Senha?",

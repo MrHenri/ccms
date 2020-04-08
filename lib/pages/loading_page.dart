@@ -17,7 +17,7 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   void initiateApp(){
-    Navigator.pushNamed(context, '/login');
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
