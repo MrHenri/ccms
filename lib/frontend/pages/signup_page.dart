@@ -1,10 +1,11 @@
-import 'package:ccms/widgets/birthday_date_pick.dart';
-import 'package:ccms/widgets/button_customized_container.dart';
-import 'package:ccms/widgets/divider_text.dart';
-import 'package:ccms/widgets/dont_have_account_text.dart';
-import 'package:ccms/widgets/image_login.dart';
-import 'package:ccms/widgets/type_driver_assign.dart';
-import 'package:ccms/widgets/register_padding.dart';
+import 'package:ccms/frontend/widgets/birthday_date_pick.dart';
+import 'package:ccms/frontend/widgets/button_customized_container.dart';
+import 'package:ccms/frontend/widgets/divider_text.dart';
+import 'package:ccms/frontend/widgets/dont_have_account_text.dart';
+import 'package:ccms/frontend/widgets/have_account.dart';
+import 'package:ccms/frontend/widgets/image_login.dart';
+import 'package:ccms/frontend/widgets/type_driver_assign.dart';
+import 'package:ccms/frontend/widgets/register_padding.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -71,9 +72,9 @@ class _SignupPageState extends State<SignupPage> {
             ),
             BirthdayDatePick(),
             TypeDriver(),
-            ButtonCustomizedContainer(text: "Cadastrar"),
+            ButtonCustomizedContainer(text: "CADASTRAR"),
             DividerText(),
-            IsHaveAccountText(question: "Já tem uma conta? ",awnser: "Faça Login"),
+            HaveAccountText(),
           ],
         ),
       ),

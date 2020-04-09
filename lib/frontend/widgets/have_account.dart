@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 
-class IsHaveAccountText extends StatefulWidget {
-  final String question;
-  final String awnser;
-  IsHaveAccountText({Key key, this.question, this.awnser}) : super(key: key);
-
+class HaveAccountText extends StatefulWidget {
   @override
-  _IsHaveAccountTextState createState() => _IsHaveAccountTextState();
+  _HaveAccountTextState createState() => _HaveAccountTextState();
 }
 
-class _IsHaveAccountTextState extends State<IsHaveAccountText> {
-  
+class _HaveAccountTextState extends State<HaveAccountText> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,20 +16,20 @@ class _IsHaveAccountTextState extends State<IsHaveAccountText> {
         highlightColor: Colors.transparent,
         textTheme: ButtonTextTheme.accent,
         onPressed: (){
-          Navigator.of(context).pushNamed('/signup');
+          Navigator.pop(context);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              widget.question,
+              "Já tem uma conta? ",
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey,
               ),
             ),
             Text(
-              widget.awnser,
+              "Faça Login",
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,

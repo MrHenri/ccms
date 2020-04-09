@@ -1,8 +1,10 @@
+import 'package:ccms/backend/assign.dart';
+import 'package:ccms/backend/login.dart';
 import 'package:flutter/material.dart';
 
 class ButtonCustomizedContainer extends StatefulWidget {
   final String text;
-  ButtonCustomizedContainer({Key key, this.text}) : super(key: key);
+  ButtonCustomizedContainer({Key key, this.text,}) : super(key: key);
 
   @override
   _ButtonCustomizedContainerState createState() => _ButtonCustomizedContainerState();
@@ -22,21 +24,15 @@ class _ButtonCustomizedContainerState extends State<ButtonCustomizedContainer> {
         ]),
         borderRadius: BorderRadius.circular(90),
       ),
-      child: FlatButton(
-        onPressed: (){},
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(90)
-        ),
-        child: Text(
-          widget.text,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            letterSpacing: 2,
-          ),
-        ),
-      ),
+      child: isLogin(widget.text),
     );
+  }
+  isLogin(text){
+    if (text == "LOGIN"){
+      return Login();
+    }
+    else if (text == "CADASTRAR"){
+      return Assign();
+    }
   }
 }

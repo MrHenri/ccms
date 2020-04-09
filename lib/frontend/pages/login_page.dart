@@ -1,9 +1,10 @@
-import 'package:ccms/widgets/divider_text.dart';
-import 'package:ccms/widgets/dont_have_account_text.dart';
-import 'package:ccms/widgets/forgot_password_container.dart';
-import 'package:ccms/widgets/image_login.dart';
-import 'package:ccms/widgets/button_customized_container.dart';
-import 'package:ccms/widgets/register_padding.dart';
+import 'package:ccms/backend/login.dart';
+import 'package:ccms/frontend/widgets/divider_text.dart';
+import 'package:ccms/frontend/widgets/dont_have_account_text.dart';
+import 'package:ccms/frontend/widgets/forgot_password_container.dart';
+import 'package:ccms/frontend/widgets/image_login.dart';
+import 'package:ccms/frontend/widgets/button_customized_container.dart';
+import 'package:ccms/frontend/widgets/register_padding.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -39,9 +40,9 @@ class _LoginPageState extends State<LoginPage> {
               directionBottom: 0,
             ),
             ForgotPasswordContainer(),
-            ButtonCustomizedContainer(text: "LOGIN",),
+            ButtonCustomizedContainer(text: "LOGIN"),
             DividerText(),
-            IsHaveAccountText(question: "Não tem conta? ",awnser: "Cadastre-se"),
+            NoHaveAccountText(),
           ],
         ),
       )

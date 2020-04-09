@@ -1,7 +1,7 @@
-import 'package:ccms/pages/home_page.dart';
-import 'package:ccms/pages/loading_page.dart';
-import 'package:ccms/pages/login_page.dart';
-import 'package:ccms/pages/signup_page.dart';
+import 'package:ccms/frontend/pages/home_page.dart';
+import 'package:ccms/frontend/pages/loading_page.dart';
+import 'package:ccms/frontend/pages/login_page.dart';
+import 'package:ccms/frontend/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(SmtApp());
