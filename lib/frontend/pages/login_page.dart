@@ -7,44 +7,36 @@ import 'package:ccms/frontend/widgets/padding/register_padding.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            ImageLogin(),
-            RegisterPadding(
-              text: "Email", 
-              icon: Icon(Icons.email, color: Colors.grey),
-              directionLeft: 30,
-              directionTop: 0,
-              directionRight: 30,
-              directionBottom: 24,
-            ),
-            RegisterPadding(
-              text: "Senha", 
-              icon: Icon(Icons.vpn_key, color: Colors.grey),
-              directionLeft: 30,
-              directionTop: 0,
-              directionRight: 30,
-              directionBottom: 0,
-            ),
-            ForgotPasswordContainer(),
-            ButtonCustomizedContainer(text: "LOGIN"),
-            DividerText(),
-            NoHaveAccountText(),
-          ],
-        ),
-      )
-    );
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              ImageLogin(),
+              RegisterPadding(
+                text: "Email",
+                icon: Icon(Icons.email, color: Colors.grey),
+                inputType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: 24),
+              RegisterPadding(
+                text: "Senha",
+                icon: Icon(Icons.vpn_key, color: Colors.grey),
+                maskText: true,
+              ),
+              ForgotPasswordContainer(),
+              ButtonCustomizedContainer(text: "LOGIN"),
+              DividerText(),
+              NoHaveAccountText(),
+            ],
+          ),
+        ));
   }
 }

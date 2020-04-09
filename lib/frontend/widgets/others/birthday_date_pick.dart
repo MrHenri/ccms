@@ -25,14 +25,15 @@ class _BirthdayDatePickState extends State<BirthdayDatePick> {
                 blurRadius: 5,
                 spreadRadius: 3,
               )
-            ]
-        ),    
+            ]),
         child: FlatButton(
           onPressed: () => configDatePick(),
           child: Row(
             children: <Widget>[
               Icon(Icons.calendar_today, color: Colors.grey),
-              SizedBox(width: 16,),
+              SizedBox(
+                width: 16,
+              ),
               Text(
                 returnData(_date),
                 style: TextStyle(
@@ -41,35 +42,36 @@ class _BirthdayDatePickState extends State<BirthdayDatePick> {
               ),
             ],
           ),
-        ),   
+        ),
       ),
     );
   }
-  String returnData(DateTime date){
-    if(date == null){
+
+  String returnData(DateTime date) {
+    if (date == null) {
       return "Data de Nascimento";
-    } else{
+    } else {
       return formatDate(date, [dd, '/', mm, '/', yyyy]).toString();
     }
   }
 
   Color returnDataColor(DateTime date) {
-    if(date == null){
+    if (date == null) {
       return Colors.grey;
-    } else{
+    } else {
       return Colors.black;
     }
   }
 
-  void configDatePick() async{
+  void configDatePick() async {
     final datePick = await showDatePicker(
-      context: context, 
-      initialDate: new DateTime.now(), 
-      firstDate: new DateTime(1930), 
+      context: context,
+      initialDate: new DateTime.now(),
+      firstDate: new DateTime(1930),
       lastDate: new DateTime.now(),
-    ); 
+    );
 
-    if (datePick != null && datePick != _date){
+    if (datePick != null && datePick != _date) {
       setState(() {
         _date = datePick;
       });
