@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Assign extends StatefulWidget {
+class AssignButton extends StatefulWidget {
   @override
-  _AssignState createState() => _AssignState();
+  _AssignButtonState createState() => _AssignButtonState();
 }
 
-class _AssignState extends State<Assign> {
+class _AssignButtonState extends State<AssignButton> {
   @override
   Widget build(BuildContext context) {
     return FlatButton(

@@ -1,5 +1,5 @@
-import 'package:ccms/backend/assign.dart';
-import 'package:ccms/backend/login.dart';
+import 'package:ccms/frontend/widgets/button/flat/assign_button.dart';
+import 'package:ccms/frontend/widgets/button/flat/login_button.dart';
 import 'package:flutter/material.dart';
 
 class ButtonCustomizedContainer extends StatefulWidget {
@@ -29,10 +29,10 @@ class _ButtonCustomizedContainerState extends State<ButtonCustomizedContainer> {
   }
   isLogin(text){
     if (text == "LOGIN"){
-      return Login();
+      return LoginButton();
     }
     else if (text == "CADASTRAR"){
-      return Assign();
+      return AssignButton();
     }
   }
 }

@@ -1,11 +1,10 @@
-import 'package:ccms/frontend/widgets/birthday_date_pick.dart';
-import 'package:ccms/frontend/widgets/button_customized_container.dart';
-import 'package:ccms/frontend/widgets/divider_text.dart';
-import 'package:ccms/frontend/widgets/dont_have_account_text.dart';
-import 'package:ccms/frontend/widgets/have_account.dart';
-import 'package:ccms/frontend/widgets/image_login.dart';
-import 'package:ccms/frontend/widgets/type_driver_assign.dart';
-import 'package:ccms/frontend/widgets/register_padding.dart';
+import 'package:ccms/frontend/widgets/others/birthday_date_pick.dart';
+import 'package:ccms/frontend/widgets/button/flat/button_customized_container.dart';
+import 'package:ccms/frontend/widgets/others/divider_text.dart';
+import 'package:ccms/frontend/widgets/button/text/have_account.dart';
+import 'package:ccms/frontend/widgets/image/image_login.dart';
+import 'package:ccms/frontend/widgets/button/radio/type_driver_assign.dart';
+import 'package:ccms/frontend/widgets/padding/register_padding.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {

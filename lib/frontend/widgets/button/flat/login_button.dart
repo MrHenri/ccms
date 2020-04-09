@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
+class LoginButton extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _LoginButtonState createState() => _LoginButtonState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginButtonState extends State<LoginButton> {
   @override
   Widget build(BuildContext context) {
     return FlatButton(

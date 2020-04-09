@@ -12,7 +12,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Title(color: Colors.blueAccent, child: Text('Home')),
+        child: Text("Home", style: TextStyle(color: Colors.blueGrey),),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).pushReplacementNamed('/login'),
+        child: Text("Back"),
       ),
     );
   }
