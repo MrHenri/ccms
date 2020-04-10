@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 
 class RadioTypeDriver extends StatefulWidget {
+
+  final List<Widget> radioDriver;
+
+  const RadioTypeDriver({Key key, this.radioDriver}) : super(key: key);
+
   @override
   _RadioTypeDriverState createState() => _RadioTypeDriverState();
 }
 
 class _RadioTypeDriverState extends State<RadioTypeDriver> {
-    
-  int typeDriver;
-
-  @override
-  void initState() {
-    super.initState();
-    typeDriver = 0;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,28 +18,7 @@ class _RadioTypeDriverState extends State<RadioTypeDriver> {
       children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Radio(
-              value: 1, 
-              groupValue: typeDriver, 
-              onChanged: (value){setSelectedRadio(value);}
-            ),
-            Radio(
-              value: 2, 
-              groupValue: typeDriver, 
-              onChanged: (value){setSelectedRadio(value);}
-            ),
-            Radio(
-              value: 3, 
-              groupValue: typeDriver, 
-              onChanged: (value){setSelectedRadio(value);}
-            ),
-            Radio(
-              value: 4, 
-              groupValue: typeDriver, 
-              onChanged: (value){setSelectedRadio(value);}
-            ),
-          ],
+          children: widget.radioDriver,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,9 +44,4 @@ class _RadioTypeDriverState extends State<RadioTypeDriver> {
       ],
     );
   }
-  setSelectedRadio(int value){
-      setState(() {
-        typeDriver = value;
-      });
-    }
 }

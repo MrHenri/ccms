@@ -2,6 +2,12 @@ import 'package:ccms/frontend/widgets/buttons/radio/radio_type_driver.dart';
 import 'package:flutter/material.dart';
 
 class TypeDriver extends StatefulWidget {
+
+  final List<Widget> radioDriver;
+
+  const TypeDriver({Key key, this.radioDriver}) : super(key: key);
+
+
   @override
   _TypeDriverState createState() => _TypeDriverState();
 }
@@ -34,7 +40,7 @@ class _TypeDriverState extends State<TypeDriver> {
               fontSize: 15,
             ),
           ),
-          RadioTypeDriver(),
+          RadioTypeDriver(radioDriver: widget.radioDriver),
         ],
       ),
     );

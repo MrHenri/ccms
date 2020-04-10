@@ -1,3 +1,6 @@
+import 'package:ccms/backend/calendar.dart';
+import 'package:ccms/backend/user.dart';
+import 'package:ccms/frontend/widgets/buttons/radio/radio_type_driver.dart';
 import 'package:ccms/frontend/widgets/others/birthday_date_pick.dart';
 import 'package:ccms/frontend/widgets/buttons/flat/button_customized_container.dart';
 import 'package:ccms/frontend/widgets/others/divider_text.dart';
@@ -5,11 +8,6 @@ import 'package:ccms/frontend/widgets/buttons/text/have_account.dart';
 import 'package:ccms/frontend/widgets/image/image_login.dart';
 import 'package:ccms/frontend/widgets/buttons/radio/type_driver_assign.dart';
 import 'package:ccms/frontend/widgets/padding/register_padding.dart';
-import 'package:ccms/frontend/widgets/text/text_field_cellphone.dart';
-import 'package:ccms/frontend/widgets/text/text_field_celula.dart';
-import 'package:ccms/frontend/widgets/text/text_field_discipulador.dart';
-import 'package:ccms/frontend/widgets/text/text_field_email.dart';
-import 'package:ccms/frontend/widgets/text/text_field_name.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -20,24 +18,38 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
 
   Color color = Colors.grey;
-  final watchConfirmPassword = TextEditingController();
-  final watchPassword = TextEditingController();
+  DateTime date;
+  Calendar calendar = new Calendar();
+  User user;
+  int typeDriver;
 
-  textListener() {
-    print("Current Text is ${watchConfirmPassword.text}");
-    print("Current Text is ${watchPassword.text}");
-    print(color);
-    setState(() {
-      color = isPasswordConfirmed(watchPassword.text, watchConfirmPassword.text);
-    });
-  }
+  // Watch Parameters
+  final watchName = TextEditingController();
+  final watchEmail =  TextEditingController();
+  final watchPassword = TextEditingController();
+  final watchConfirmPassword = TextEditingController();
+  final watchCellphone = TextEditingController();
+  final watchCelula = TextEditingController();
+  final watchDiscipulador = TextEditingController();
+  final watchBirthday = TextEditingController();
+
+  textListener() => setState(() {
+    color = isPasswordConfirmed(watchPassword.text, watchConfirmPassword.text);
+  });
+
 
   @override
   void initState() {
     super.initState();
     // Start listening to changes
+    watchName.addListener(textListener);
+    watchEmail.addListener(textListener);
     watchPassword.addListener(textListener);
     watchConfirmPassword.addListener(textListener);
+    watchCellphone.addListener(textListener);
+    watchCelula.addListener(textListener);
+    watchDiscipulador.addListener(textListener);
+    typeDriver = 0;
   }
 
   @override
@@ -48,10 +60,27 @@ class _SignupPageState extends State<SignupPage> {
         child: Column(
           children: <Widget>[
             ImageLogin(),
-            RegisterPadding(field: TextFieldName()),
+            RegisterPadding(field: TextField(
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: "Nome Completo",
+                icon: Icon(Icons.person),
+              ),
+              controller: watchName,
+            )),
             SizedBox(height: 24),
-            RegisterPadding(field: TextFieldEmail()),
+
+            RegisterPadding(field: TextField(
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: "Email",
+                icon: Icon(Icons.email),
+              ),
+              keyboardType: TextInputType.emailAddress,
+              controller: watchEmail,
+            )),
             SizedBox(height: 24),
+
             RegisterPadding(field: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -62,6 +91,7 @@ class _SignupPageState extends State<SignupPage> {
               controller: watchPassword,
             )),
             SizedBox(height: 24),
+
             RegisterPadding(field: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -72,16 +102,95 @@ class _SignupPageState extends State<SignupPage> {
               controller: watchConfirmPassword,
             )),
             SizedBox(height: 24),
-            RegisterPadding(field: TextFieldCellphone()),
+
+            RegisterPadding(field: TextField(
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: "Número do celular",
+                icon: Icon(Icons.call),
+              ),
+              keyboardType: TextInputType.phone,
+              controller: watchCellphone,
+            )),
             SizedBox(height: 24),
-            RegisterPadding(field: TextFieldCelula()),
+
+            RegisterPadding(field: TextField(
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: "Célula",
+                icon: Icon(Icons.add),
+              ),
+              controller: watchCelula,
+            )),
             SizedBox(height: 24),
-            RegisterPadding(field: TextFieldDiscipulador()),
+
+            RegisterPadding(field: TextField(
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: "Discipulador",
+                icon: Icon(Icons.people),
+              ),
+              controller: watchDiscipulador,
+            )),
             SizedBox(height: 24),
-            BirthdayDatePick(),
-            TypeDriver(),
+
+            BirthdayDatePick(flatButton: FlatButton(
+              onPressed: () => configDatePick(),
+              child: Row(
+                children: <Widget>[
+                  Icon(Icons.calendar_today, color: Colors.grey),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Text(
+                    calendar.returnData(date),
+                    style: TextStyle(
+                      color: calendar.returnDataColor(date),
+                    ),
+                  ),
+                ],
+              ),
+            )),
             SizedBox(height: 24),
-            ButtonCustomizedContainer(text: "CADASTRAR"),
+
+            TypeDriver(radioDriver: <Widget>[
+              Radio(
+                  value: 1,
+                  groupValue: typeDriver,
+                  onChanged: (value){setSelectedRadio(value);}
+              ),
+              Radio(
+                  value: 2,
+                  groupValue: typeDriver,
+                  onChanged: (value){setSelectedRadio(value);}
+              ),
+              Radio(
+                  value: 3,
+                  groupValue: typeDriver,
+                  onChanged: (value){
+                    setSelectedRadio(value);
+                  }
+              ),
+              Radio(
+                value: 4,
+                groupValue: typeDriver,
+                onChanged: (value){setSelectedRadio(value);},
+              ),
+            ]),
+            SizedBox(height: 24),
+
+            ButtonCustomizedContainer(
+              text: "CADASTRAR",
+              name: watchName.text,
+              email: watchEmail.text,
+              password: watchPassword.text,
+              confirmPassword: watchConfirmPassword.text,
+              cellPhone: watchCellphone.text,
+              celula: watchCelula.text,
+              discipulador: watchDiscipulador.text,
+              date: calendar.returnData(date),
+              driver: typeDriver,
+            ),
             DividerText(),
             HaveAccountText(),
           ],
@@ -89,11 +198,28 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
-  Color isPasswordConfirmed(String password, String confirmPassword) {
-    if (password == confirmPassword){
-      return Colors.green;
-    } else{
-      return Colors.red;
+
+  Color isPasswordConfirmed(String password, String confirmPassword) =>
+      password == confirmPassword ? Colors.green : Colors.red;
+
+  void configDatePick() async {
+    final datePick = await showDatePicker(
+      context: context,
+      initialDate: new DateTime.now(),
+      firstDate: new DateTime(1930),
+      lastDate: new DateTime.now(),
+    );
+
+    if (datePick != null && datePick != date) {
+      setState(() {
+        date = datePick;
+      });
     }
+  }
+
+  setSelectedRadio(int value){
+    setState(() {
+      typeDriver = value;
+    });
   }
 }

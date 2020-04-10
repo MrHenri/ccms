@@ -1,5 +1,3 @@
-import 'package:ccms/frontend/widgets/text/text_field_cellphone.dart';
-import 'package:ccms/frontend/widgets/text/text_field_name.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPadding extends StatefulWidget {
@@ -14,7 +12,6 @@ class RegisterPadding extends StatefulWidget {
   _RegisterPaddingState createState() => _RegisterPaddingState();
 }
 
-//30, 0, 30, 24
 class _RegisterPaddingState extends State<RegisterPadding> {
   @override
   Widget build(BuildContext context) {

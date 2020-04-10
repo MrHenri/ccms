@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatefulWidget {
+
+  final VoidCallback press;
+
+  const LoginButton({Key key, this.press}) : super(key: key);
+
   @override
   _LoginButtonState createState() => _LoginButtonState();
 }

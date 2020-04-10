@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +16,12 @@ class _HomePageState extends State<HomePage> {
         child: Text("Home", style: TextStyle(color: Colors.blueGrey),),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pushReplacementNamed('/login'),
+        onPressed: () {
+          FirebaseAuth.instance
+              .signOut()
+              .then((value) {Navigator.pushReplacementNamed(context, '/login');})
+              .catchError((e){print(e);});
+        },
         child: Text("Back"),
       ),
     );

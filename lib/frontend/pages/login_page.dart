@@ -4,8 +4,6 @@ import 'package:ccms/frontend/widgets/buttons/text/forgot_password_container.dar
 import 'package:ccms/frontend/widgets/image/image_login.dart';
 import 'package:ccms/frontend/widgets/buttons/flat/button_customized_container.dart';
 import 'package:ccms/frontend/widgets/padding/register_padding.dart';
-import 'package:ccms/frontend/widgets/text/text_field_email.dart';
-import 'package:ccms/frontend/widgets/text/text_field_password.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,6 +12,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  Color color = Colors.grey;
+  final watchPassword = TextEditingController();
+
+  textListenerPassword() => print("password: ${watchPassword.text}");
+
+
+  @override
+  void initState() {
+    super.initState();
+    // Start listening to changes
+    watchPassword.addListener(textListenerPassword);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,9 +34,24 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: <Widget>[
               ImageLogin(),
-              RegisterPadding(field: TextFieldEmail()),
+              RegisterPadding(field: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Email",
+                  icon: Icon(Icons.email),
+                ),
+                keyboardType: TextInputType.emailAddress,
+              )),
               SizedBox(height: 24),
-              RegisterPadding(field: TextFieldPassword()),
+              RegisterPadding(field: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Senha",
+                  icon: Icon(Icons.vpn_key, color: color),
+                ),
+                obscureText: true,
+                controller: watchPassword,
+              )),
               ForgotPasswordContainer(),
               ButtonCustomizedContainer(text: "LOGIN"),
               DividerText(),

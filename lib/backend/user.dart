@@ -1,18 +1,17 @@
 import 'package:ccms/backend/type_driver.dart';
 
 class User {
-  String _nome;
+  String _name;
   String _email;
-  String _senha;
+  String _password;
   String _cellphone;
   String _discipulador;
   String _celula;
-  DateTime _birthday;
+  String _birthday;
   TypeDriver _typeDriver;
 
-  User(this._nome, this._email, this._senha, this._cellphone,
-      this._discipulador, this._celula,
-      this._birthday, this._typeDriver);
+  User(this._name, this._email, this._password, this._cellphone,
+      this._discipulador, this._celula, [this._birthday, this._typeDriver]);
 
   TypeDriver get typeDriver => _typeDriver;
 
@@ -20,9 +19,9 @@ class User {
     _typeDriver = value;
   }
 
-  DateTime get birthday => _birthday;
+  String get birthday => _birthday;
 
-  set birthday(DateTime value) {
+  set birthday(String value) {
     _birthday = value;
   }
 
@@ -44,10 +43,10 @@ class User {
     _cellphone = value;
   }
 
-  String get senha => _senha;
+  String get password => _password;
 
-  set senha(String value) {
-    _senha = value;
+  set password(String value) {
+    _password = value;
   }
 
   String get email => _email;
@@ -56,11 +55,9 @@ class User {
     _email = value;
   }
 
-  String get nome => _nome;
+  String get name => _name;
 
-  set nome(String value) {
-    _nome = value;
+  set name(String value) {
+    _name = value;
   }
-
-
 }
