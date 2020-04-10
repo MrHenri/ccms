@@ -1,9 +1,11 @@
 import 'package:ccms/frontend/widgets/others/divider_text.dart';
-import 'package:ccms/frontend/widgets/button/text/dont_have_account_text.dart';
-import 'package:ccms/frontend/widgets/button/text/forgot_password_container.dart';
+import 'package:ccms/frontend/widgets/buttons/text/dont_have_account_text.dart';
+import 'package:ccms/frontend/widgets/buttons/text/forgot_password_container.dart';
 import 'package:ccms/frontend/widgets/image/image_login.dart';
-import 'package:ccms/frontend/widgets/button/flat/button_customized_container.dart';
+import 'package:ccms/frontend/widgets/buttons/flat/button_customized_container.dart';
 import 'package:ccms/frontend/widgets/padding/register_padding.dart';
+import 'package:ccms/frontend/widgets/text/text_field_email.dart';
+import 'package:ccms/frontend/widgets/text/text_field_password.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,17 +22,9 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: <Widget>[
               ImageLogin(),
-              RegisterPadding(
-                text: "Email",
-                icon: Icon(Icons.email, color: Colors.grey),
-                inputType: TextInputType.emailAddress,
-              ),
+              RegisterPadding(field: TextFieldEmail()),
               SizedBox(height: 24),
-              RegisterPadding(
-                text: "Senha",
-                icon: Icon(Icons.vpn_key, color: Colors.grey),
-                maskText: true,
-              ),
+              RegisterPadding(field: TextFieldPassword()),
               ForgotPasswordContainer(),
               ButtonCustomizedContainer(text: "LOGIN"),
               DividerText(),

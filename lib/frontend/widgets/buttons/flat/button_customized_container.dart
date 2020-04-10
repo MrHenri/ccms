@@ -1,5 +1,5 @@
-import 'package:ccms/frontend/widgets/button/flat/assign_button.dart';
-import 'package:ccms/frontend/widgets/button/flat/login_button.dart';
+import 'package:ccms/frontend/widgets/buttons/flat/assign_button.dart';
+import 'package:ccms/frontend/widgets/buttons/flat/login_button.dart';
 import 'package:flutter/material.dart';
 
 class ButtonCustomizedContainer extends StatefulWidget {

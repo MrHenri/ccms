@@ -1,17 +1,13 @@
+import 'package:ccms/frontend/widgets/text/text_field_cellphone.dart';
+import 'package:ccms/frontend/widgets/text/text_field_name.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPadding extends StatefulWidget {
-  final String text;
-  final Icon icon;
-  final TextInputType inputType;
-  final bool maskText;
+  final StatefulWidget field;
 
   const RegisterPadding({
     Key key,
-    this.text,
-    this.icon,
-    this.inputType,
-    this.maskText = false,
+    this.field,
   }) : super(key: key);
 
   @override
@@ -36,18 +32,7 @@ class _RegisterPaddingState extends State<RegisterPadding> {
               spreadRadius: 3,
             )
           ]),
-      child: Padding(
-      padding: EdgeInsets.all(5),
-      child: TextField(
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: widget.text,
-          icon: widget.icon,
-        ),
-        keyboardType: widget.inputType,
-        obscureText: widget.maskText,
-      ),
-    ),
+      child: Padding(padding: EdgeInsets.all(5), child: widget.field),
     );
   }
 }
