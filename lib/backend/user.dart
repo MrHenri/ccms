@@ -1,63 +1,20 @@
 import 'package:ccms/backend/type_driver.dart';
 
 class User {
-  String _name;
-  String _email;
-  String _password;
-  String _cellphone;
-  String _discipulador;
-  String _celula;
-  String _birthday;
-  TypeDriver _typeDriver;
+  String name;
+  String email;
+  String password;
+  String cellphone;
+  String discipulador;
+  String celula;
+  DateTime birthday;
+  TypeDriver typeDriver;
 
-  User(this._name, this._email, this._password, this._cellphone,
-      this._discipulador, this._celula, [this._birthday, this._typeDriver]);
 
-  TypeDriver get typeDriver => _typeDriver;
+  User({this.name, this.email, this.password, this.cellphone,
+    this.discipulador, this.celula, this.birthday, this.typeDriver});
 
-  set typeDriver(TypeDriver value) {
-    _typeDriver = value;
-  }
+  User.login({this.email, this.password});
 
-  String get birthday => _birthday;
 
-  set birthday(String value) {
-    _birthday = value;
-  }
-
-  String get celula => _celula;
-
-  set celula(String value) {
-    _celula = value;
-  }
-
-  String get discipulador => _discipulador;
-
-  set discipulador(String value) {
-    _discipulador = value;
-  }
-
-  String get cellphone => _cellphone;
-
-  set cellphone(String value) {
-    _cellphone = value;
-  }
-
-  String get password => _password;
-
-  set password(String value) {
-    _password = value;
-  }
-
-  String get email => _email;
-
-  set email(String value) {
-    _email = value;
-  }
-
-  String get name => _name;
-
-  set name(String value) {
-    _name = value;
-  }
 }

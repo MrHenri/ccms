@@ -1,3 +1,4 @@
+import 'package:ccms/backend/Login_validation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,10 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           FirebaseAuth.instance
               .signOut()
-              .then((value) {Navigator.pushReplacementNamed(context, '/login');})
+              .then((value) {
+                Login().signOut();
+                Navigator.pushReplacementNamed(context, '/login');
+              })
               .catchError((e){print(e);});
         },
         child: Text("Back"),

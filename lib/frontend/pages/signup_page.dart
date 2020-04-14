@@ -1,6 +1,7 @@
 import 'package:ccms/backend/calendar.dart';
+import 'package:ccms/backend/register_validation.dart';
+import 'package:ccms/backend/Login_validation.dart';
 import 'package:ccms/backend/user.dart';
-import 'package:ccms/frontend/widgets/buttons/radio/radio_type_driver.dart';
 import 'package:ccms/frontend/widgets/others/birthday_date_pick.dart';
 import 'package:ccms/frontend/widgets/buttons/flat/button_customized_container.dart';
 import 'package:ccms/frontend/widgets/others/divider_text.dart';
@@ -20,7 +21,6 @@ class _SignupPageState extends State<SignupPage> {
   Color color = Colors.grey;
   DateTime date;
   Calendar calendar = new Calendar();
-  User user;
   int typeDriver;
 
   // Watch Parameters
@@ -31,7 +31,6 @@ class _SignupPageState extends State<SignupPage> {
   final watchCellphone = TextEditingController();
   final watchCelula = TextEditingController();
   final watchDiscipulador = TextEditingController();
-  final watchBirthday = TextEditingController();
 
   textListener() => setState(() {
     color = isPasswordConfirmed(watchPassword.text, watchConfirmPassword.text);
@@ -54,6 +53,20 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    Validation validation= Validation();
+
+    User user = User(
+      name: watchName.text,
+      email: watchEmail.text,
+      password: watchPassword.text,
+      cellphone: watchCellphone.text,
+      celula: watchCelula.text,
+      discipulador: watchDiscipulador.text,
+      birthday: date,
+      typeDriver: validation.whatTypeDriver(typeDriver),
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -143,7 +156,7 @@ class _SignupPageState extends State<SignupPage> {
                     width: 16,
                   ),
                   Text(
-                    calendar.returnData(date),
+                    calendar.returnDataUI(date),
                     style: TextStyle(
                       color: calendar.returnDataColor(date),
                     ),
@@ -179,18 +192,7 @@ class _SignupPageState extends State<SignupPage> {
             ]),
             SizedBox(height: 24),
 
-            ButtonCustomizedContainer(
-              text: "CADASTRAR",
-              name: watchName.text,
-              email: watchEmail.text,
-              password: watchPassword.text,
-              confirmPassword: watchConfirmPassword.text,
-              cellPhone: watchCellphone.text,
-              celula: watchCelula.text,
-              discipulador: watchDiscipulador.text,
-              date: calendar.returnData(date),
-              driver: typeDriver,
-            ),
+            ButtonCustomizedContainer(text: "CADASTRAR", user: user, confirmPassword: watchConfirmPassword.text),
             DividerText(),
             HaveAccountText(),
           ],
@@ -200,7 +202,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Color isPasswordConfirmed(String password, String confirmPassword) =>
-      password == confirmPassword ? Colors.green : Colors.red;
+      password == confirmPassword && password.length >= 6 ? Colors.green : Colors.red;
 
   void configDatePick() async {
     final datePick = await showDatePicker(

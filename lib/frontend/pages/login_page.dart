@@ -1,3 +1,4 @@
+import 'package:ccms/backend/user.dart';
 import 'package:ccms/frontend/widgets/others/divider_text.dart';
 import 'package:ccms/frontend/widgets/buttons/text/dont_have_account_text.dart';
 import 'package:ccms/frontend/widgets/buttons/text/forgot_password_container.dart';
@@ -14,20 +15,23 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   Color color = Colors.grey;
+
+  final watchEmail =  TextEditingController();
   final watchPassword = TextEditingController();
 
-  textListenerPassword() => print("password: ${watchPassword.text}");
-
+  textListener(){setState(() {});}
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    // Start listening to changes
-    watchPassword.addListener(textListenerPassword);
+    watchEmail.addListener(textListener);
+    watchPassword.addListener(textListener);
   }
 
   @override
   Widget build(BuildContext context) {
+    User user = User(email: watchEmail.text, password: watchPassword.text);
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -38,9 +42,10 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Email",
-                  icon: Icon(Icons.email),
+                  icon: Icon(Icons.email, color: color),
                 ),
                 keyboardType: TextInputType.emailAddress,
+                controller: watchEmail,
               )),
               SizedBox(height: 24),
               RegisterPadding(field: TextField(
@@ -53,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 controller: watchPassword,
               )),
               ForgotPasswordContainer(),
-              ButtonCustomizedContainer(text: "LOGIN"),
+              ButtonCustomizedContainer(text: "LOGIN", user: user),
               DividerText(),
               NoHaveAccountText(),
             ],

@@ -1,32 +1,13 @@
-import 'package:ccms/backend/services/user_management.dart';
-import 'package:ccms/backend/signup_validation.dart';
+import 'package:ccms/backend/register_validation.dart';
+import 'package:ccms/backend/Login_validation.dart';
 import 'package:ccms/backend/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AssignButton extends StatefulWidget {
-  final String name;
-  final String email;
-  final String password;
+  final User user;
   final String confirmPassword;
-  final String cellPhone;
-  final String celula;
-  final String discipulador;
-  final String date;
-  final int driver;
 
-  const AssignButton({
-    Key key,
-    this.name,
-    this.email,
-    this.password,
-    this.confirmPassword,
-    this.cellPhone,
-    this.celula,
-    this.discipulador,
-    this.date,
-    this.driver,
-  }) : super(key: key);
+  const AssignButton({Key key,this.user, this.confirmPassword,}) : super(key: key);
 
   @override
   _AssignButtonState createState() => _AssignButtonState();
@@ -36,16 +17,22 @@ class _AssignButtonState extends State<AssignButton> {
 
   @override
   Widget build(BuildContext context) {
+
+    Login login = Login();
+    Validation validation = Validation();
+
     return FlatButton(
       onPressed: () {
-        if (loginValidation()){
-          register();
-        } else {
-          setState(() {
-            Scaffold.of(context).showSnackBar(SnackBar(content: Text("Probleminhas")));
-          });
+        if(validation.generalValidation(
+            widget.user.password,
+            widget.confirmPassword,
+            widget.user.typeDriver)){
+          login.signUp(widget.user);
+          Navigator.pop(context);
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Cadastro efetuado com sucesso")));
+        } else{
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Problemas com o cadastro")));
         }
-        //Navigator.pop(context);
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90)),
       child: Text(
@@ -59,36 +46,4 @@ class _AssignButtonState extends State<AssignButton> {
       ),
     );
   }
-  register(){
-    FirebaseAuth.instance.createUserWithEmailAndPassword(email: widget.email, password: widget.password)
-        .then((singnedInUser) {
-          UserManagement().storeNewUser(singnedInUser, context);
-    })
-        .catchError((e){print(e);});
-//    Signup signup = Signup(
-//      name: widget.name,
-//      email: widget.email,
-//      password: widget.password,
-//      confirmPassword: widget.confirmPassword,
-//      cellPhone: widget.cellPhone,
-//      celula: widget.celula,
-//      discipulador: widget.discipulador,
-//      date: widget.date,
-//      driver: widget.driver
-//    );
-//    signup.register();
-  }
-
-  bool loginValidation(){
-    Signup signup = Signup.Validation(
-        password: widget.password,
-        confirmPassword: widget.confirmPassword,
-        driver: widget.driver);
-
-    bool password = signup.isPasswordValid(widget.password, widget.confirmPassword);
-    bool driver = signup.isDriverValid(widget.driver);
-
-    return password && driver ? true : false;
-  }
-
 }

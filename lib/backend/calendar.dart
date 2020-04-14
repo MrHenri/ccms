@@ -9,7 +9,7 @@ class Calendar{
 
   Calendar({this.context});
 
-  String returnData(DateTime date) {
+  String returnDataUI(DateTime date) {
     if (date == null) {
       return "Data de Nascimento";
     } else {

@@ -1,21 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import '../user.dart';
 
+class UserManagement {
 
-class UserManagement{
-  storeNewUser(user, context){
-    Firestore.instance
-        .collection('/users')
-        .add({
+  final String uid;
+  UserManagement({this.uid});
+
+  final CollectionReference userCollection = Firestore.instance.collection('/user');
+
+  Future storeNewUser(User user) async {
+    return await userCollection.document(uid).setData({
+      'name': user.name,
       'email': user.email,
-      'id': user.id,
-    })
-        .then((value){
-          Navigator.pop(context);
-          Navigator.pushReplacementNamed(context, '/home');
-    })
-        .catchError((e){
-      print(e);
+      'cellPhone': user.cellphone,
+      'célula': user.celula,
+      'discipulador': user.discipulador,
+      'birthday': user.birthday.toString(),
+      'type_driver': user.typeDriver.toString(),
     });
   }
 }
