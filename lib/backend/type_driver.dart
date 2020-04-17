@@ -1,4 +1,5 @@
 enum TypeDriver{
+ None,
  A,
  B,
  AB,

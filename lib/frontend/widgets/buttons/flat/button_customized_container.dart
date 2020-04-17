@@ -4,12 +4,18 @@ import 'package:ccms/frontend/widgets/buttons/flat/login_button.dart';
 import 'package:flutter/material.dart';
 
 class ButtonCustomizedContainer extends StatefulWidget {
-
   final String text;
   final User user;
   final String confirmPassword;
+  final List<Color> listColorIcons;
 
-  ButtonCustomizedContainer({Key key, this.text, this.user, this.confirmPassword,}) : super(key: key);
+  ButtonCustomizedContainer({
+    Key key,
+    this.text,
+    this.user,
+    this.confirmPassword,
+    this.listColorIcons,
+  }) : super(key: key);
 
   @override
   _ButtonCustomizedContainerState createState() =>
@@ -17,7 +23,6 @@ class ButtonCustomizedContainer extends StatefulWidget {
 }
 
 class _ButtonCustomizedContainerState extends State<ButtonCustomizedContainer> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,10 +42,15 @@ class _ButtonCustomizedContainerState extends State<ButtonCustomizedContainer> {
 
   isLogin(text) {
     if (text == "LOGIN") {
-      return LoginButton(user: widget.user,);
-    } else if (text == "CADASTRAR"){
-      return AssignButton(user: widget.user, confirmPassword: widget.confirmPassword);
-      }
+      return LoginButton(
+        user: widget.user,
+      );
+    } else if (text == "CADASTRAR") {
+      return AssignButton(
+        user: widget.user,
+        confirmPassword: widget.confirmPassword,
+        listColorIcons: widget.listColorIcons,
+      );
     }
   }
-
+}

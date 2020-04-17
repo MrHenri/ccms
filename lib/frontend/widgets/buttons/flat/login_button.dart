@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatefulWidget {
-
   final User user;
 
   const LoginButton({Key key, this.user}) : super(key: key);
@@ -19,18 +18,18 @@ class _LoginButtonState extends State<LoginButton> {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      onPressed: ()async{
+      onPressed: () async {
         FirebaseUser user = await login.signIn(widget.user);
-        if (user != null){
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Login efetuado com sucesso")));
+        if (user != null) {
+          Scaffold.of(context).showSnackBar(
+              SnackBar(content: Text("Login efetuado com sucesso")));
           Navigator.of(context).pushReplacementNamed('/home');
         } else {
-          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Email não confirmado")));
+          Scaffold.of(context)
+              .showSnackBar(SnackBar(content: Text("Email ou Senha inválidos")));
         }
-        },
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(90)
-      ),
+      },
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90)),
       child: Text(
         "LOGIN",
         style: TextStyle(

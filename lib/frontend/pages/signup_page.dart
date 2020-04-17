@@ -1,6 +1,5 @@
 import 'package:ccms/backend/calendar.dart';
 import 'package:ccms/backend/register_validation.dart';
-import 'package:ccms/backend/Login_validation.dart';
 import 'package:ccms/backend/user.dart';
 import 'package:ccms/frontend/widgets/others/birthday_date_pick.dart';
 import 'package:ccms/frontend/widgets/buttons/flat/button_customized_container.dart';
@@ -17,15 +16,21 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  Color colorName,
+      colorEmail,
+      colorPassword,
+      colorCellphone,
+      colorCelula,
+      colorDiscipulador,
+      colorCalendar = Colors.grey;
 
-  Color color = Colors.grey;
   DateTime date;
   Calendar calendar = new Calendar();
   int typeDriver;
 
   // Watch Parameters
   final watchName = TextEditingController();
-  final watchEmail =  TextEditingController();
+  final watchEmail = TextEditingController();
   final watchPassword = TextEditingController();
   final watchConfirmPassword = TextEditingController();
   final watchCellphone = TextEditingController();
@@ -33,9 +38,9 @@ class _SignupPageState extends State<SignupPage> {
   final watchDiscipulador = TextEditingController();
 
   textListener() => setState(() {
-    color = isPasswordConfirmed(watchPassword.text, watchConfirmPassword.text);
-  });
-
+        colorPassword =
+            isPasswordConfirmed(watchPassword.text, watchConfirmPassword.text);
+      });
 
   @override
   void initState() {
@@ -53,8 +58,16 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    Validation validation= Validation();
+    Validation validation = Validation();
+    List<Color> listColorIcons = [
+      colorName,
+      colorEmail,
+      colorPassword,
+      colorCellphone,
+      colorCelula,
+      colorDiscipulador,
+      colorCalendar
+    ];
 
     User user = User(
       name: watchName.text,
@@ -73,7 +86,8 @@ class _SignupPageState extends State<SignupPage> {
         child: Column(
           children: <Widget>[
             ImageLogin(),
-            RegisterPadding(field: TextField(
+            RegisterPadding(
+                field: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Nome Completo",
@@ -82,8 +96,8 @@ class _SignupPageState extends State<SignupPage> {
               controller: watchName,
             )),
             SizedBox(height: 24),
-
-            RegisterPadding(field: TextField(
+            RegisterPadding(
+                field: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Email",
@@ -93,30 +107,30 @@ class _SignupPageState extends State<SignupPage> {
               controller: watchEmail,
             )),
             SizedBox(height: 24),
-
-            RegisterPadding(field: TextField(
+            RegisterPadding(
+                field: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Senha",
-                icon: Icon(Icons.vpn_key, color: color),
+                icon: Icon(Icons.vpn_key, color: colorPassword),
               ),
               obscureText: true,
               controller: watchPassword,
             )),
             SizedBox(height: 24),
-
-            RegisterPadding(field: TextField(
+            RegisterPadding(
+                field: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Confirmar Senha",
-                icon: Icon(Icons.vpn_key, color: color),
+                icon: Icon(Icons.vpn_key, color: colorPassword),
               ),
               obscureText: true,
               controller: watchConfirmPassword,
             )),
             SizedBox(height: 24),
-
-            RegisterPadding(field: TextField(
+            RegisterPadding(
+                field: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Número do celular",
@@ -126,8 +140,8 @@ class _SignupPageState extends State<SignupPage> {
               controller: watchCellphone,
             )),
             SizedBox(height: 24),
-
-            RegisterPadding(field: TextField(
+            RegisterPadding(
+                field: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Célula",
@@ -136,8 +150,8 @@ class _SignupPageState extends State<SignupPage> {
               controller: watchCelula,
             )),
             SizedBox(height: 24),
-
-            RegisterPadding(field: TextField(
+            RegisterPadding(
+                field: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: "Discipulador",
@@ -146,8 +160,8 @@ class _SignupPageState extends State<SignupPage> {
               controller: watchDiscipulador,
             )),
             SizedBox(height: 24),
-
-            BirthdayDatePick(flatButton: FlatButton(
+            BirthdayDatePick(
+                flatButton: FlatButton(
               onPressed: () => configDatePick(),
               child: Row(
                 children: <Widget>[
@@ -165,34 +179,40 @@ class _SignupPageState extends State<SignupPage> {
               ),
             )),
             SizedBox(height: 24),
-
             TypeDriver(radioDriver: <Widget>[
               Radio(
                   value: 1,
                   groupValue: typeDriver,
-                  onChanged: (value){setSelectedRadio(value);}
-              ),
+                  onChanged: (value) {
+                    setSelectedRadio(value);
+                  }),
               Radio(
                   value: 2,
                   groupValue: typeDriver,
-                  onChanged: (value){setSelectedRadio(value);}
-              ),
+                  onChanged: (value) {
+                    setSelectedRadio(value);
+                  }),
               Radio(
                   value: 3,
                   groupValue: typeDriver,
-                  onChanged: (value){
+                  onChanged: (value) {
                     setSelectedRadio(value);
-                  }
-              ),
+                  }),
               Radio(
                 value: 4,
                 groupValue: typeDriver,
-                onChanged: (value){setSelectedRadio(value);},
+                onChanged: (value) {
+                  setSelectedRadio(value);
+                },
               ),
             ]),
             SizedBox(height: 24),
-
-            ButtonCustomizedContainer(text: "CADASTRAR", user: user, confirmPassword: watchConfirmPassword.text),
+            ButtonCustomizedContainer(
+                text: "CADASTRAR",
+                user: user,
+                confirmPassword: watchConfirmPassword.text,
+                listColorIcons: listColorIcons,
+            ),
             DividerText(),
             HaveAccountText(),
           ],
@@ -202,7 +222,9 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Color isPasswordConfirmed(String password, String confirmPassword) =>
-      password == confirmPassword && password.length >= 6 ? Colors.green : Colors.red;
+      password == confirmPassword && password.length >= 6
+          ? Colors.green
+          : Colors.red;
 
   void configDatePick() async {
     final datePick = await showDatePicker(
@@ -219,7 +241,7 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
-  setSelectedRadio(int value){
+  setSelectedRadio(int value) {
     setState(() {
       typeDriver = value;
     });
