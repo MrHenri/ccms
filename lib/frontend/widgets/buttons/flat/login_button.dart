@@ -13,13 +13,13 @@ class LoginButton extends StatefulWidget {
 }
 
 class _LoginButtonState extends State<LoginButton> {
-  Login login = Login();
+
 
   @override
   Widget build(BuildContext context) {
     return FlatButton(
       onPressed: () async {
-        FirebaseUser user = await login.signIn(widget.user);
+        FirebaseUser user = await Login(context).signIn(widget.user);
         if (user != null) {
           Scaffold.of(context).showSnackBar(
               SnackBar(content: Text("Login efetuado com sucesso")));

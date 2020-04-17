@@ -1,14 +1,15 @@
 import 'package:ccms/backend/type_driver.dart';
 import 'package:ccms/backend/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Validation {
 
   User user;
+  BuildContext context;
 
-
-  Validation([this.user]);
+  Validation({this.user, this.context});
 
   bool isNameValid() => user.name != "" ? true : false;
 
@@ -58,6 +59,17 @@ class Validation {
           return TypeDriver.Nao_Habilitado;
         }
         break;
+    }
+  }
+
+  FirebaseUser emailConfirmed(FirebaseUser fireUser) {
+    if (fireUser.isEmailVerified) {
+      return fireUser;
+    }else{
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(
+              "Email não confirmado")));
+      return null;
     }
   }
 

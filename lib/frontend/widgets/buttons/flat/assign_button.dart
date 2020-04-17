@@ -26,7 +26,7 @@ class _AssignButtonState extends State<AssignButton> {
 
     return FlatButton(
       onPressed: () async {
-        if (Validation(widget.user).generalValidation(
+        if (Validation(user: widget.user).generalValidation(
             widget.confirmPassword,
             context)  == true) {
           if(await login.signUp(widget.user) != null) {

@@ -1,25 +1,29 @@
+import 'package:ccms/backend/register_validation.dart';
 import 'package:ccms/backend/services/auth_user.dart';
 import 'package:ccms/backend/services/user_management.dart';
 import 'package:ccms/backend/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Login extends BaseAuth {
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  BuildContext context;
+
+
+  Login([this.context]);
 
   @override
   Future<FirebaseUser> signIn(User user) async {
     try {
       AuthResult auth = await _firebaseAuth.signInWithEmailAndPassword(
           email: user.email.trim(), password: user.password);
-      final FirebaseUser fireUser = auth.user;
-      return fireUser.isEmailVerified ? fireUser : null;
+      return Validation(context: context).emailConfirmed(auth.user);
     }catch (e) {
       print(e);
       return null;
     }
-//    return fireUser.isEmailVerified ? fireUser : null;
   }
 
   @override
