@@ -23,8 +23,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
+    //Watch States
     watchEmail.addListener(textListener);
     watchPassword.addListener(textListener);
   }
@@ -38,6 +39,8 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: <Widget>[
               ImageLogin(),
+
+              //Email Field
               RegisterPadding(field: TextField(
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -48,6 +51,8 @@ class _LoginPageState extends State<LoginPage> {
                 controller: watchEmail,
               )),
               SizedBox(height: 24),
+
+              //Password Field
               RegisterPadding(field: TextField(
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -58,6 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                 controller: watchPassword,
               )),
               ForgotPasswordContainer(),
+
+              //Login Button
               ButtonCustomizedContainer(text: "LOGIN", user: user),
               DividerText(),
               NoHaveAccountText(),

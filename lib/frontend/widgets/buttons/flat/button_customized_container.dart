@@ -4,17 +4,15 @@ import 'package:ccms/frontend/widgets/buttons/flat/login_button.dart';
 import 'package:flutter/material.dart';
 
 class ButtonCustomizedContainer extends StatefulWidget {
-  final String text;
+  final String text; //LOGIN OU CADASTRO
   final User user;
   final String confirmPassword;
-  final List<Color> listColorIcons;
 
   ButtonCustomizedContainer({
     Key key,
     this.text,
     this.user,
     this.confirmPassword,
-    this.listColorIcons,
   }) : super(key: key);
 
   @override
@@ -49,7 +47,6 @@ class _ButtonCustomizedContainerState extends State<ButtonCustomizedContainer> {
       return AssignButton(
         user: widget.user,
         confirmPassword: widget.confirmPassword,
-        listColorIcons: widget.listColorIcons,
       );
     }
   }

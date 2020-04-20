@@ -6,10 +6,8 @@ import 'package:flutter/material.dart';
 class AssignButton extends StatefulWidget {
   final User user;
   final String confirmPassword;
-  final List<Color> listColorIcons;
 
-  const AssignButton(
-      {Key key, this.user, this.confirmPassword, this.listColorIcons,})
+  const AssignButton({Key key, this.user, this.confirmPassword})
       : super(key: key);
 
   @override
@@ -17,28 +15,12 @@ class AssignButton extends StatefulWidget {
 }
 
 class _AssignButtonState extends State<AssignButton> {
-
   Validation validation = Validation();
 
   @override
   Widget build(BuildContext context) {
-    Login login = Login();
-
     return FlatButton(
-      onPressed: () async {
-        if (Validation(user: widget.user).generalValidation(
-            widget.confirmPassword,
-            context)  == true) {
-          if(await login.signUp(widget.user) != null) {
-            Navigator.pop(context);
-            Scaffold.of(context).showSnackBar(
-                SnackBar(content: Text("Cadastro efetuado com sucesso")));
-          } else {
-            Scaffold.of(context).showSnackBar(
-                SnackBar(content: Text("Email já cadastrado ou Inválido")));
-          }
-        }
-      },
+      onPressed: () async => assign(),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90)),
       child: Text(
         "CADASTRAR",
@@ -50,5 +32,21 @@ class _AssignButtonState extends State<AssignButton> {
         ),
       ),
     );
+  }
+
+  assign() async {
+    Login login = Login();
+    Validation validation = Validation(user: widget.user);
+
+    if (validation.generalValidation(widget.confirmPassword, context) == true) { //Validação de preenchimento correto dos dados
+      if (await login.signUp(widget.user) != null) { //Validação de Email
+        Navigator.pop(context);
+        Scaffold.of(context).showSnackBar(
+            SnackBar(content: Text("Cadastro efetuado com sucesso")));
+      } else {
+        Scaffold.of(context).showSnackBar(
+            SnackBar(content: Text("Email já cadastrado ou Inválido")));
+      }
+    }
   }
 }

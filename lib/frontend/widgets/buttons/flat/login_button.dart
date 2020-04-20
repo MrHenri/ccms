@@ -18,17 +18,7 @@ class _LoginButtonState extends State<LoginButton> {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      onPressed: () async {
-        FirebaseUser user = await Login(context).signIn(widget.user);
-        if (user != null) {
-          Scaffold.of(context).showSnackBar(
-              SnackBar(content: Text("Login efetuado com sucesso")));
-          Navigator.of(context).pushReplacementNamed('/home');
-        } else {
-          Scaffold.of(context)
-              .showSnackBar(SnackBar(content: Text("Email ou Senha inválidos")));
-        }
-      },
+      onPressed: () async => await loginConfirm(),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90)),
       child: Text(
         "LOGIN",
@@ -40,5 +30,17 @@ class _LoginButtonState extends State<LoginButton> {
         ),
       ),
     );
+  }
+
+  loginConfirm()async{
+    FirebaseUser user = await Login(context).signIn(widget.user);
+    if (user != null) {
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text("Login efetuado com sucesso")));
+      Navigator.of(context).pushReplacementNamed('/home');
+    } else {
+      Scaffold.of(context)
+          .showSnackBar(SnackBar(content: Text("Email ou Senha inválidos")));
+    }
   }
 }
