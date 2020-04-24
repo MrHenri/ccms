@@ -1,6 +1,6 @@
-import 'package:ccms/backend/calendar.dart';
+import 'package:ccms/backend/models/calendar.dart';
 import 'package:ccms/backend/register_validation.dart';
-import 'package:ccms/backend/user.dart';
+import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/frontend/widgets/others/birthday_date_pick.dart';
 import 'package:ccms/frontend/widgets/buttons/flat/button_customized_container.dart';
 import 'package:ccms/frontend/widgets/others/divider_text.dart';
@@ -32,7 +32,8 @@ class _SignupPageState extends State<SignupPage> {
   final watchDiscipulador = TextEditingController();
 
   textListener() => setState(() {
-        colorPassword = isPasswordConfirmed(watchPassword.text, watchConfirmPassword.text);
+        colorPassword =
+            isPasswordConfirmed(watchPassword.text, watchConfirmPassword.text);
       });
 
   @override
@@ -215,9 +216,7 @@ class _SignupPageState extends State<SignupPage> {
             ButtonCustomizedContainer(
                 text: "CADASTRAR",
                 user: user,
-                confirmPassword: watchConfirmPassword.text
-            ),
-
+                confirmPassword: watchConfirmPassword.text),
 
             DividerText(),
             HaveAccountText(),
@@ -229,7 +228,9 @@ class _SignupPageState extends State<SignupPage> {
 
   //Senhas precisam ser iguais && >= 6 caracteres
   Color isPasswordConfirmed(String password, String confirmPassword) =>
-      password == confirmPassword && password.length >= 6 ? Colors.green : Colors.red;
+      password == confirmPassword && password.length >= 6
+          ? Colors.green
+          : Colors.red;
 
   //Configuração do calendário
   void configDatePick() async {

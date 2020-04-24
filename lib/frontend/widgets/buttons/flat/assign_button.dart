@@ -1,6 +1,6 @@
 import 'package:ccms/backend/register_validation.dart';
 import 'package:ccms/backend/Login_validation.dart';
-import 'package:ccms/backend/user.dart';
+import 'package:ccms/backend/models/user.dart';
 import 'package:flutter/material.dart';
 
 class AssignButton extends StatefulWidget {
@@ -38,8 +38,10 @@ class _AssignButtonState extends State<AssignButton> {
     Login login = Login();
     Validation validation = Validation(user: widget.user);
 
-    if (validation.generalValidation(widget.confirmPassword, context) == true) { //Validação de preenchimento correto dos dados
-      if (await login.signUp(widget.user) != null) { //Validação de Email
+    if (validation.generalValidation(widget.confirmPassword, context) == true) {
+      //Validação de preenchimento correto dos dados
+      if (await login.signUp(widget.user) != null) {
+        //Validação de Email
         Navigator.pop(context);
         Scaffold.of(context).showSnackBar(
             SnackBar(content: Text("Cadastro efetuado com sucesso")));

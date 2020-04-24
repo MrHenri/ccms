@@ -1,11 +1,10 @@
 import 'package:ccms/backend/type_driver.dart';
-import 'package:ccms/backend/user.dart';
+import 'package:ccms/backend/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Validation {
-
   User user;
   BuildContext context;
 
@@ -65,10 +64,9 @@ class Validation {
   FirebaseUser emailConfirmed(FirebaseUser fireUser) {
     if (fireUser.isEmailVerified) {
       return fireUser;
-    }else{
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(
-              "Email não confirmado")));
+    } else {
+      Scaffold.of(context)
+          .showSnackBar(SnackBar(content: Text("Email não confirmado")));
       return null;
     }
   }
@@ -83,13 +81,11 @@ class Validation {
         isCellphoneValid() &&
         isCelulaValid() &&
         isDiscipuladorValid() &&
-        isBirthdayValid()){
+        isBirthdayValid()) {
       return true;
     } else {
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(
-              "Preencha adequadamente todos os campos")));
+      Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text("Preencha adequadamente todos os campos")));
     }
-
   }
 }

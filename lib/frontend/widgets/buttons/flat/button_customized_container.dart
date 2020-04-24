@@ -1,4 +1,4 @@
-import 'package:ccms/backend/user.dart';
+import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/frontend/widgets/buttons/flat/assign_button.dart';
 import 'package:ccms/frontend/widgets/buttons/flat/login_button.dart';
 import 'package:flutter/material.dart';

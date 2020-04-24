@@ -1,4 +1,4 @@
-import 'package:ccms/backend/user.dart';
+import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/frontend/widgets/others/divider_text.dart';
 import 'package:ccms/frontend/widgets/buttons/text/dont_have_account_text.dart';
 import 'package:ccms/frontend/widgets/buttons/text/forgot_password_container.dart';
@@ -13,13 +13,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   Color color = Colors.grey;
 
-  final watchEmail =  TextEditingController();
+  final watchEmail = TextEditingController();
   final watchPassword = TextEditingController();
 
-  textListener(){setState(() {});}
+  textListener() {
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -41,7 +42,8 @@ class _LoginPageState extends State<LoginPage> {
               ImageLogin(),
 
               //Email Field
-              RegisterPadding(field: TextField(
+              RegisterPadding(
+                  field: TextField(
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Email",
@@ -53,7 +55,8 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 24),
 
               //Password Field
-              RegisterPadding(field: TextField(
+              RegisterPadding(
+                  field: TextField(
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Senha",
