@@ -1,4 +1,4 @@
-import 'package:ccms/backend/type_driver.dart';
+import 'package:ccms/backend/models/type_driver.dart';
 
 class User {
   String name;

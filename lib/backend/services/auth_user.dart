@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ccms/backend/user.dart';
+import 'package:ccms/backend/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class BaseAuth {

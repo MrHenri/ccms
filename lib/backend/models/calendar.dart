@@ -9,9 +9,9 @@ class Calendar{
 
   Calendar({this.context});
 
-  String returnDataUI(DateTime date) {
+  String returnDataUI(DateTime date, String title) {
     if (date == null) {
-      return "Data de Nascimento";
+      return title;
     } else {
       return formatDate(date, [dd, '/', mm, '/', yyyy]).toString();
     }
