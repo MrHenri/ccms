@@ -1,5 +1,5 @@
-import 'package:ccms/backend/type_driver.dart';
-import 'package:ccms/backend/user.dart';
+import 'package:ccms/backend/models/type_driver.dart';
+import 'package:ccms/backend/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,13 +1,13 @@
-import 'package:ccms/backend/calendar.dart';
-import 'package:ccms/backend/register_validation.dart';
-import 'package:ccms/backend/user.dart';
-import 'package:ccms/frontend/widgets/others/birthday_date_pick.dart';
-import 'package:ccms/frontend/widgets/buttons/flat/button_customized_container.dart';
-import 'package:ccms/frontend/widgets/others/divider_text.dart';
-import 'package:ccms/frontend/widgets/buttons/text/have_account.dart';
-import 'package:ccms/frontend/widgets/image/image_login.dart';
-import 'package:ccms/frontend/widgets/buttons/radio/type_driver_assign.dart';
-import 'package:ccms/frontend/widgets/padding/register_padding.dart';
+import 'package:ccms/backend/models/calendar.dart';
+import 'package:ccms/backend/dao/register_validation.dart';
+import 'package:ccms/backend/models/user.dart';
+import 'package:ccms/frontend/login_widgets/others/birthday_date_pick.dart';
+import 'package:ccms/frontend/login_widgets/buttons/flat/button_customized_container.dart';
+import 'package:ccms/frontend/login_widgets/others/divider_text.dart';
+import 'package:ccms/frontend/login_widgets/buttons/text/have_account.dart';
+import 'package:ccms/frontend/login_widgets/image/image_login.dart';
+import 'package:ccms/frontend/login_widgets/buttons/radio/type_driver_assign.dart';
+import 'package:ccms/frontend/login_widgets/padding/register_padding.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -171,7 +171,7 @@ class _SignupPageState extends State<SignupPage> {
                     width: 16,
                   ),
                   Text(
-                    calendar.returnDataUI(date),
+                    calendar.returnDataUI(date, "Data de Nascimento"),
                     style: TextStyle(
                       color: calendar.returnDataColor(date),
                     ),
