@@ -14,8 +14,8 @@ class SmtApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        //'/': (context) => LoadingPage(),
-        '/': (context) => EscalaPage(),
+        '/': (context) => LoadingPage(),
+        '/escala': (context) => EscalaPage(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
         '/home': (context) => HomePage(),

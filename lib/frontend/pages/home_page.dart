@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                 builder: (BuildContext context){
                   return IconButton(
                     icon: Icon(IconData(59555, fontFamily: 'MaterialIcons'),),
-                    onPressed: () {_scaffoldKey.currentState.openDrawer();},
+                    onPressed: () => Navigator.of(context).pushNamed('/escala'),
                   );
                 },
               ),
