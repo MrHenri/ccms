@@ -1,5 +1,5 @@
 import 'package:ccms/backend/models/type_driver.dart';
-import 'package:ccms/backend/user_type.dart';
+import 'package:ccms/backend/models/user_type.dart';
 
 class User {
   String name;

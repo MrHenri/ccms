@@ -1,5 +1,5 @@
 import 'package:ccms/backend/models/user.dart';
-import 'package:ccms/backend/user_type.dart';
+import 'package:ccms/backend/models/user_type.dart';
 import 'dart:html';
 
 class UserGroup {

@@ -1,4 +1,4 @@
-import 'package:ccms/backend/user_group.dart';
+import 'package:ccms/backend/models/user_group.dart';
 
 class Service {
   int _motorcycles = 0;
