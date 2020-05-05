@@ -1,4 +1,4 @@
-import 'package:ccms/backend/Login_validation.dart';
+import 'package:ccms/backend/dao/Login_validation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                 builder: (BuildContext context){
                   return IconButton(
                     icon: Icon(IconData(59555, fontFamily: 'MaterialIcons'),),
-                    onPressed: () {_scaffoldKey.currentState.openDrawer();},
+                    onPressed: () => Navigator.of(context).pushNamed('/escala'),
                   );
                 },
               ),

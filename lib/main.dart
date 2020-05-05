@@ -1,8 +1,11 @@
+import 'package:ccms/frontend/pages/escala_page.dart';
 import 'package:ccms/frontend/pages/home_page.dart';
 import 'package:ccms/frontend/pages/loading_page.dart';
 import 'package:ccms/frontend/pages/login_page.dart';
 import 'package:ccms/frontend/pages/signup_page.dart';
 import 'package:flutter/material.dart';
+
+import 'frontend/pages/services_page.dart';
 
 void main() => runApp(SmtApp());
 
@@ -14,9 +17,11 @@ class SmtApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoadingPage(),
+        '/escala': (context) => EscalaPage(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
         '/home': (context) => HomePage(),
+        '/services': (context) => Services(),
       },
     );
   }
