@@ -14,129 +14,141 @@ class _EquipeTableState extends State<EquipeTable> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 50,
-          width: MediaQuery.of(context).size.width,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              color: Colors.green,
-              borderRadius: BorderRadius.all(Radius.circular(20))),
-          child: TextFormField(
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 28, letterSpacing: 2, fontWeight: FontWeight.bold),
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                labelText: "Equipe",
-                labelStyle: TextStyle(
-                  fontSize: 18,
-                )),
-          ),
-        ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Container(
-                height: 60,
-                alignment: Alignment.center,
-                margin: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: Colors.grey[600],
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15),
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      labelText: "Servo",
-                      labelStyle: TextStyle(
-                        fontSize: 18,
-                      )),
-                  controller: name,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                height: 60,
-                alignment: Alignment.center,
-                margin: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: Colors.grey[600],
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 15),
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      labelText: "Telefone",
-                      labelStyle: TextStyle(
-                        fontSize: 18,
-                      )),
-                  controller: cellphone,
-                ),
-              ),
-            ),
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: (){
-                listNames.add(name.text);
-                listCellfone.add(cellphone.text);
-                name.clear();
-                cellphone.clear();
-                setState(() {});
-              },
-              
-            )
-          ],
-        ),
-        Expanded(
-          child: ListView.builder(
-              itemCount: listNames.length,
-              itemBuilder: (BuildContext ctxt, int index) {
-                final itemName = listNames[index];
-                return Dismissible(
-                  key: Key(itemName),
-                  onDismissed: (direction) {
-                    setState(() {
-                      listNames.removeAt(index);
-                      listCellfone.removeAt(index);
-                    });
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text("$itemName dismissed"),
-                    ));
-                  },
-                  background: Container(
-                    color: Colors.red,
+    UniqueKey();
+    return Container(
+      height: 340,
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 60,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[600],
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 5,
+                          spreadRadius: 3,
+                        )
+                      ]),
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15),
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        labelText: "Servo",
+                        labelStyle: TextStyle(
+                          fontSize: 18,
+                        )),
+                    controller: name,
                   ),
-                  child: buildBody(ctxt, index),
-                );
-              }),
-        ),
-      ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  height: 60,
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[600],
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 5,
+                          spreadRadius: 3,
+                        )
+                      ]),
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 15),
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        labelText: "Telefone",
+                        labelStyle: TextStyle(
+                          fontSize: 18,
+                        )),
+                    controller: cellphone,
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(right: 8),
+                decoration: BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5,
+                        spreadRadius: 3,
+                      )
+                    ]),
+                child: IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    listNames.add(name.text);
+                    listCellfone.add(cellphone.text);
+                    name.clear();
+                    cellphone.clear();
+                    setState(() {});
+                  },
+                ),
+              )
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+                itemCount: listNames.length,
+                itemBuilder: (BuildContext ctxt, int index) {
+                  final itemName = listNames[index];
+                  return Dismissible(
+                    key: UniqueKey(),
+                    onDismissed: (direction) {
+                      setState(() {
+                        listNames.removeAt(index);
+                        listCellfone.removeAt(index);
+                      });
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text("$itemName dismissed"),
+                      ));
+                    },
+                    background: Container(
+                      color: Colors.red,
+                    ),
+                    child: buildBody(ctxt, index),
+                  );
+                }),
+          ),
+        ],
+      ),
     );
   }
 
   Widget buildBody(BuildContext ctxt, int index) {
     return new Container(
-      height: 50,
       width: MediaQuery.of(context).size.width,
       alignment: Alignment.center,
+      margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Colors.blue,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Row(
         children: <Widget>[
           Expanded(
             flex: 2,
             child: Container(
-              margin: EdgeInsets.only(left: 8),
+              padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: Colors.brown,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: Text(
                 listNames[index],
@@ -146,13 +158,16 @@ class _EquipeTableState extends State<EquipeTable> {
               ),
             ),
           ),
-          SizedBox(width: 10,),
+          SizedBox(
+            width: 10,
+          ),
           Expanded(
             flex: 1,
             child: Container(
-              margin: EdgeInsets.only(right: 8),
+              padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: Colors.orange,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: Text(
                 listCellfone[index],
