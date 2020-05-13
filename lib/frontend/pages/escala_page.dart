@@ -23,7 +23,7 @@ class _EscalaPageState extends State<EscalaPage> {
         backgroundColor: Colors.blueGrey,
         floatingActionButton: FloatingActionButton(
           onPressed: (){
-
+            Navigator.pushNamed(context, '/equipeCreator');
           },
           child: Icon(Icons.add),
         ),

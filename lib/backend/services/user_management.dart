@@ -17,6 +17,7 @@ class UserManagement {
       'discipulador': user.discipulador,
       'birthday': user.birthday.toString(),
       'type_driver': user.typeDriver.toString(),
+      'user_type': 'servant'
     });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 
 class EquipeCreator extends StatefulWidget {
   @override
@@ -14,58 +15,66 @@ class _EquipeCreatorState extends State<EquipeCreator> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        body: Column(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5,
-                            spreadRadius: 3,
-                          )
-                        ]),
-                    child: TextFormField(
-                      textAlign: TextAlign.center,
+            Container(
+              margin: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  color: Colors.amberAccent,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 5,
+                      spreadRadius: 3,
+                    )
+                  ]),
+              child: TextFormField(
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 28, letterSpacing: 2, fontWeight: FontWeight.bold),
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    labelText: "Equipe",
+                    labelStyle: TextStyle(
+                      fontSize: 18,
+                    )),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(8),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                  color: Colors.lightBlue,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 5,
+                      spreadRadius: 3,
+                    )
+                  ]),
+              child: FlatButton(
+                onPressed: (){
+                  createAlertDialog(context);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      "Adicionar Líder",
                       style: TextStyle(
-                          fontSize: 28, letterSpacing: 2, fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          labelText: "Equipe",
-                          labelStyle: TextStyle(
-                            fontSize: 18,
-                          )),
+                        fontSize: 16,
+                        letterSpacing: 1.5
+                      ),
                     ),
-                  ),
+                    Icon(Icons.person_add,)
+                  ],
                 ),
-                Container(
-                  margin: EdgeInsets.only(right: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 5,
-                          spreadRadius: 3,
-                        )
-                      ]),
-                  child: IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: (){},
-                  ),
-                )
-              ],
+              )
             ),
             Row(
               children: <Widget>[
@@ -142,6 +151,7 @@ class _EquipeCreatorState extends State<EquipeCreator> {
                   child: IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () {
+                      FocusScope.of(context).requestFocus(FocusNode());
                       listNames.add(name.text);
                       listCellfone.add(cellphone.text);
                       name.clear();
@@ -153,32 +163,107 @@ class _EquipeCreatorState extends State<EquipeCreator> {
               ],
             ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: listNames.length,
-                  itemBuilder: (BuildContext ctxt, int index) {
-                    final itemName = listNames[index];
-                    return Dismissible(
-                      key: UniqueKey(),
-                      onDismissed: (direction) {
-                        setState(() {
-                          listNames.removeAt(index);
-                          listCellfone.removeAt(index);
-                        });
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text("$itemName dismissed"),
-                        ));
-                      },
-                      background: Container(
+              child: Container(
+                margin: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5,
+                        spreadRadius: 3,
+                      )
+                    ]),
+                child: ListView.builder(
+                    itemCount: listNames.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      final itemName = listNames[index];
+                      return Dismissible(
+                        key: UniqueKey(),
+                        onDismissed: (direction) {
+                          setState(() {
+                            listNames.removeAt(index);
+                            listCellfone.removeAt(index);
+                          });
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text("$itemName dismissed"),
+                          ));
+                        },
+                        background: Container(
+                          color: Colors.red,
+                        ),
+                        child: buildBody(ctxt, index),
+                      );
+                    }),
+              ),
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(8, 16, 8, 20),
+                    decoration: BoxDecoration(
                         color: Colors.red,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5,
+                            spreadRadius: 3,
+                          )
+                        ]),
+                    child: FlatButton(
+                      onPressed: (){},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Expanded(child: Text("Delete", textAlign: TextAlign.center,)),
+                          Icon(Icons.delete)
+                        ],
                       ),
-                      child: buildBody(ctxt, index),
-                    );
-                  }),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(8, 16, 8, 20),
+                    decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5,
+                            spreadRadius: 3,
+                          )
+                        ]),
+                    child: FlatButton(
+                      onPressed: (){},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Expanded(child: Text("Salvar", textAlign: TextAlign.center,)),
+                          Icon(Icons.save)
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  createAlertDialog(BuildContext context){
+    return showDialog(context: context, builder: (context){
+      return AlertDialog(
+        title: Text("Escolha um líder de escala", style: TextStyle(fontSize: 16),),
+      );
+    });
   }
 
   Widget buildBody(BuildContext ctxt, int index) {
