@@ -1,4 +1,3 @@
-
 import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/models/user_group.dart';
 import 'package:ccms/backend/services/user_management.dart';
@@ -16,7 +15,7 @@ class _GroupCreationState extends State<GroupCreationPage>{
   final snapshotLeaders = UserManagement().snapshotLeaders();
   final snapshotServants = UserManagement().snapshotServants();
   final UserGroup newUserGroup = UserGroup();
-  final User currentLeader = User();
+  User currentLeader = User();
 
   textListener() => setState(() {
   });
@@ -24,10 +23,10 @@ class _GroupCreationState extends State<GroupCreationPage>{
   List<User> _getMembers(){
     ///Return a list of recent added members.
     List<User> members = [];
-    if((currentLeader.getName() != null) && (newUserGroup.getServants().isEmpty)){
-      members = [currentLeader];
-    }else if((currentLeader.getName() != null) && (newUserGroup.getServants().isNotEmpty)){
+    if(currentLeader.getName() != null){
       members = [currentLeader] + newUserGroup.getServants();
+    }else{
+      members = newUserGroup.getServants();
     }
     return members;
   }
@@ -109,7 +108,7 @@ class _GroupCreationState extends State<GroupCreationPage>{
             ),
           );
         }
-    )
+      )
     );
   }
 
@@ -236,7 +235,10 @@ class _GroupCreationState extends State<GroupCreationPage>{
                 onPressed: (){
                   setState(() {
                     newUserGroup.removeMember(snapshot.data[index]);
-                    Navigator.of(context).popAndPushNamed('/groupCreationPage');
+                    if (currentLeader.getEmail() != newUserGroup.getLeader().getEmail()){
+                      currentLeader = User();
+                    }
+                    setState(() {});
                 });
               }),
             );

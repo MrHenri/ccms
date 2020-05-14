@@ -5,7 +5,7 @@ class UserGroup {
   ///attributes
   String _groupName;
   List <User> _servants = [];
-  User _groupLeader;
+  User _groupLeader = User();
   bool _onService = false;
 
   ///getters
@@ -59,7 +59,7 @@ class UserGroup {
     }
     this._servants = [];
     this._groupLeader.isInGroup = false;
-    this._groupLeader = null;
+    this._groupLeader = User();
   }
 
   void removeMember(User member){
@@ -69,7 +69,7 @@ class UserGroup {
       member.isInGroup = false;
     }else if (this._groupLeader == member){
       this._groupLeader.isInGroup = false;
-      this._groupLeader = null;
+      this._groupLeader = User();
     }else{
       //need to throw an exception
     }
@@ -82,7 +82,7 @@ class UserGroup {
 
   void removeLeader(){
     this._groupLeader.isInGroup = false;
-    this._groupLeader = null;
+    this._groupLeader = User();
   }
 
 }

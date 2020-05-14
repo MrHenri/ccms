@@ -20,7 +20,6 @@ class User {
   User.login({this.email, this.password});
 
   ///getters
-
   String getName() => this.name;
   String getEmail() => this.email;
   String getTypeDriver() => typeDriverToString(this.typeDriver);
