@@ -30,6 +30,17 @@ class UserGroup {
       //need to throw an error or an exception
     }
   }
+  
+  bool searchServant(String email){
+    ///Receives the user email as a parameter and returns true if he is in servant list.
+    bool result = false;
+    for (int i = 0; i < this._servants.length; i++ ){
+      if (email == this._servants[i].getEmail()){
+        result = true;
+      }
+    }
+    return result;
+  }
 
   void addServant(User servant){
     ///Add a servant to group list.
