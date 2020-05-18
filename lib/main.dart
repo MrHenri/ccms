@@ -1,5 +1,6 @@
 import 'package:ccms/frontend/escala_widgets/equipe_table.dart';
 import 'package:ccms/frontend/pages/escala_page.dart';
+import 'package:ccms/frontend/pages/group_creation_page.dart';
 import 'package:ccms/frontend/pages/home_page.dart';
 import 'package:ccms/frontend/pages/loading_page.dart';
 import 'package:ccms/frontend/pages/login_page.dart';
@@ -19,12 +20,13 @@ class SmtApp extends StatelessWidget {
       routes: {
 //        '/': (context) => LoadingPage(),
 //        '/escala': (context) => EscalaPage(),
-        '/': (context) => EscalaPage(),
+        '/': (context) => GroupCreationPage(),
         '/equipeCreator':(context) => EquipeCreator(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
         '/home': (context) => HomePage(),
         '/services': (context) => Services(),
+        '/groupCreationPage': (context) => GroupCreationPage(),
       },
     );
   }
