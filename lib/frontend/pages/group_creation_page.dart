@@ -1,4 +1,3 @@
-
 import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/models/user_group.dart';
 import 'package:ccms/backend/services/user_management.dart';
@@ -16,7 +15,7 @@ class _GroupCreationState extends State<GroupCreationPage>{
   final snapshotLeaders = UserManagement().snapshotLeaders();
   final snapshotServants = UserManagement().snapshotServants();
   final UserGroup newUserGroup = UserGroup();
-  final User currentLeader = User();
+  User currentLeader = User();
 
   textListener() => setState(() {
   });
@@ -24,61 +23,22 @@ class _GroupCreationState extends State<GroupCreationPage>{
   List<User> _getMembers(){
     ///Return a list of recent added members.
     List<User> members = [];
-    if((currentLeader.getName() != null) && (newUserGroup.getServants().isEmpty)){
-      members = [currentLeader];
-    }else if((currentLeader.getName() != null) && (newUserGroup.getServants().isNotEmpty)){
+    if(currentLeader.getName() != null){
       members = [currentLeader] + newUserGroup.getServants();
+    }else{
+      members = newUserGroup.getServants();
     }
     return members;
   }
 
-  Widget _buildServants(){
-    ///Returns a list view based on a stream data of all servants in database.
-    return StreamBuilder(
-      stream: snapshotServants,
-      builder: (BuildContext context, AsyncSnapshot snapshot)
-      {
-        {
-          if (snapshot.hasError)
-        { return Text('Error: ${snapshot.error}');
-
-      } switch (snapshot.connectionState){
-            case ConnectionState.waiting: return Text('Carregando servos...');
-            default:
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: snapshot.data.documents.length,
-                itemBuilder: (context, index){
-                  DocumentSnapshot servantSnapshot = snapshot.data.documents[index];
-                  return ListTile(
-                    title: Text('${servantSnapshot.data['name']}'),
-                  );
-                },
-              );
-          }
-        }
-      }
-    );
-  }
-
-  void _servantsPage(){
-    ///Creates a new page route in a Scaffold widget, loading all servants in the new page.
-    Navigator.of(context).push(MaterialPageRoute<void>(
-      builder:(BuildContext context){
-        return Scaffold(
-          appBar: AppBar(title: Text('Servos'), backgroundColor: Colors.indigo),
-          body: SingleChildScrollView(
-            child: _buildServants(),
-          ),
-        );
-        }
-      )
-    );
+  Future _getMembersDetails() async {
+    ///A future function used to return members information.
+    var result = _getMembers();
+    return result;
   }
 
   Widget _buildLeaders(){
     ///Returns a list view based on a stream data of all leaders in database.
-
     return StreamBuilder(
         stream: snapshotLeaders,
         builder: (BuildContext context, AsyncSnapshot snapshot)
@@ -97,10 +57,10 @@ class _GroupCreationState extends State<GroupCreationPage>{
                   shrinkWrap: true,
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index){
-                    DocumentSnapshot servantSnapshot = snapshot.data.documents[index];
+                    DocumentSnapshot leaderSnapshot = snapshot.data.documents[index];
                     return ListTile(
-                      title: Text('${servantSnapshot.data['name']}'),
-                      subtitle: Text('Célula: ${servantSnapshot.data['célula']}\nHabilitação: ${servantSnapshot.data['type_driver']}'),
+                      title: Text('${leaderSnapshot.data['name']}'),
+                      subtitle: Text('Célula: ${leaderSnapshot.data['célula']}\nHabilitação: ${leaderSnapshot.data['type_driver']}'),
                       trailing: IconButton(
                         icon: Icon(Icons.add_box),
                         iconSize: 40,
@@ -108,13 +68,13 @@ class _GroupCreationState extends State<GroupCreationPage>{
                         onPressed: (){
                           setState(() {
                             //setting the leader information
-                            currentLeader.setName(servantSnapshot.data['name']);
-                            currentLeader.setEmail(servantSnapshot.data['email']);
-                            currentLeader.setCellphone(servantSnapshot.data['cellPhone']);
-                            currentLeader.setDiscipulador(servantSnapshot.data['discipulador']);
-                            currentLeader.setCelula(servantSnapshot.data['célula']);
-                            currentLeader.setTypeDriver(servantSnapshot.data['type_driver']);
-                            currentLeader.setUid(servantSnapshot.documentID);
+                            currentLeader.setName(leaderSnapshot.data['name']);
+                            currentLeader.setEmail(leaderSnapshot.data['email']);
+                            currentLeader.setCellphone(leaderSnapshot.data['cellPhone']);
+                            currentLeader.setDiscipulador(leaderSnapshot.data['discipulador']);
+                            currentLeader.setCelula(leaderSnapshot.data['célula']);
+                            currentLeader.setTypeDriver(leaderSnapshot.data['type_driver']);
+                            currentLeader.setUid(leaderSnapshot.documentID);
                             currentLeader.assignLeadership();
 
                             //assigning the leader as a new group leader
@@ -137,9 +97,120 @@ class _GroupCreationState extends State<GroupCreationPage>{
     );
   }
 
-  Future _getMembersDetails() async {
-    var result = _getMembers();
-    return result;
+  void _leadersPage(){
+    ///Creates a new page route in a Scaffold widget, loading all leaders in the new page.
+    Navigator.of(context).push(MaterialPageRoute<void>(
+        builder:(BuildContext context){
+          return Scaffold(
+            appBar: AppBar(title: Text('Líderes'), backgroundColor: Colors.indigo),
+            body: SingleChildScrollView(
+              child: _buildLeaders(),
+            ),
+          );
+        }
+      )
+    );
+  }
+
+  Widget _buildServants(){
+    ///Returns a list view based on a stream data of all servants in database.
+    return StreamBuilder(
+        stream: snapshotServants,
+        builder: (BuildContext context, AsyncSnapshot snapshot)
+        {
+          {
+            if (snapshot.hasError)
+            { return Text('Error: ${snapshot.error}');
+
+            } switch (snapshot.connectionState){
+              case ConnectionState.waiting: return Text('Carregando servos...');
+              default:
+                return ListView.separated(
+                    separatorBuilder: (context, index) => Divider(
+                    color: Colors.grey
+                  ),
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.documents.length,
+                  itemBuilder: (context, index){
+                    DocumentSnapshot servantSnapshot = snapshot.data.documents[index];
+                    return ListTile(
+                      title: Text('${servantSnapshot.data['name']}'),
+                      subtitle: Text('Célula: ${servantSnapshot.data['célula']}\nHabilitação: ${servantSnapshot.data['type_driver']}'),
+                      trailing: IconButton(
+                        icon: Icon(Icons.add_box),
+                        iconSize: 40,
+                        color: Colors.indigo,
+                        onPressed: (){
+                          setState(() {
+                            if (newUserGroup.searchServant(servantSnapshot.data['email'])){
+                              //this condition is to check if the servant was selected previously
+                              setState(() {
+                                _showAlreadySelectedServantDialog();
+                              });
+                            }else {
+                              User currentServant = User(
+                                name: servantSnapshot.data['name'],
+                                email: servantSnapshot.data['email'],
+                                cellphone: servantSnapshot.data['cellPhone'],
+                                discipulador: servantSnapshot.data['cellPhone'],
+                                celula: servantSnapshot.data['célula'],
+                                uid: servantSnapshot.data['uid'],
+                              );
+                              currentServant.setTypeDriver(servantSnapshot.data['type_driver']);
+                              currentServant.setUid(servantSnapshot.documentID);
+
+                              newUserGroup.addServant(currentServant);
+                              setState(() {
+                                Navigator.of(context).pop();
+                              });
+
+                            }
+                          });
+                        },
+                      ),
+                    );
+                  },
+                );
+            }
+          }
+        }
+    );
+  }
+
+  void _showAlreadySelectedServantDialog(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text('Esse membro já foi adicionado ao grupo.', style: TextStyle(fontSize: 16)),
+          contentPadding: EdgeInsets.fromLTRB(6, 4, 6, 6),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Fechar'),
+              onPressed: (){
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      }
+    );
+  }
+
+  void _servantsPage(){
+    ///Creates a new page route in a Scaffold widget, loading all servants in the new page.
+    Navigator.of(context).push(MaterialPageRoute<void>(
+        builder:(BuildContext context){
+          return Scaffold(
+            appBar: AppBar(title: Text('Servos'), backgroundColor: Colors.indigo),
+            body: SingleChildScrollView(
+              child: _buildServants(),
+            ),
+          );
+        }
+    )
+    );
   }
 
   Widget _groupListView(){
@@ -164,7 +235,10 @@ class _GroupCreationState extends State<GroupCreationPage>{
                 onPressed: (){
                   setState(() {
                     newUserGroup.removeMember(snapshot.data[index]);
-                    Navigator.of(context).popAndPushNamed('/groupCreationPage');
+                    if (currentLeader.getEmail() != newUserGroup.getLeader().getEmail()){
+                      currentLeader = User();
+                    }
+                    setState(() {});
                 });
               }),
             );
@@ -174,24 +248,9 @@ class _GroupCreationState extends State<GroupCreationPage>{
     );
   }
 
-  void _leadersPage(){
-    ///Creates a new page route in a Scaffold widget, loading all leaders in the new page.
-    Navigator.of(context).push(MaterialPageRoute<void>(
-        builder:(BuildContext context){
-          return Scaffold(
-            appBar: AppBar(title: Text('Líderes'), backgroundColor: Colors.indigo),
-            body: SingleChildScrollView(
-              child: _buildLeaders(),
-            ),
-          );
-        }
-    )
-    );
-  }
 
   FlatButton addMemberButton(){
     ///Return a button in screen, which description will depend if the leader was selected or not.
-    bool leaderState = true;
 
     void setLeaderState(){
       setState(() {
@@ -205,8 +264,8 @@ class _GroupCreationState extends State<GroupCreationPage>{
       });
     }
 
-    if (leaderState) {
-
+    if (currentLeader.getName() == null) {
+      //this conditional will be check if there is a leader already selected
       return FlatButton(
         padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
         color: Colors.indigo,
@@ -227,8 +286,6 @@ class _GroupCreationState extends State<GroupCreationPage>{
       );
     }
   }
-  
-  
 
 
   @override

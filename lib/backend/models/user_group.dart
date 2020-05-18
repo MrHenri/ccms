@@ -5,7 +5,7 @@ class UserGroup {
   ///attributes
   String _groupName;
   List <User> _servants = [];
-  User _groupLeader;
+  User _groupLeader = User();
   bool _onService = false;
 
   ///getters
@@ -30,6 +30,17 @@ class UserGroup {
       //need to throw an error or an exception
     }
   }
+  
+  bool searchServant(String email){
+    ///Receives the user email as a parameter and returns true if he is in servant list.
+    bool result = false;
+    for (int i = 0; i < this._servants.length; i++ ){
+      if (email == this._servants[i].getEmail()){
+        result = true;
+      }
+    }
+    return result;
+  }
 
   void addServant(User servant){
     ///Add a servant to group list.
@@ -48,7 +59,7 @@ class UserGroup {
     }
     this._servants = [];
     this._groupLeader.isInGroup = false;
-    this._groupLeader = null;
+    this._groupLeader = User();
   }
 
   void removeMember(User member){
@@ -58,7 +69,7 @@ class UserGroup {
       member.isInGroup = false;
     }else if (this._groupLeader == member){
       this._groupLeader.isInGroup = false;
-      this._groupLeader = null;
+      this._groupLeader = User();
     }else{
       //need to throw an exception
     }
@@ -71,7 +82,7 @@ class UserGroup {
 
   void removeLeader(){
     this._groupLeader.isInGroup = false;
-    this._groupLeader = null;
+    this._groupLeader = User();
   }
 
 }
