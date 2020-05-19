@@ -25,11 +25,11 @@ class UserManagement {
   }
 
   Stream<QuerySnapshot> snapshotLeaders(){
-    return this.userCollection.where('user_type', isEqualTo: 'leader').snapshots();
+    return this.userCollection.where('user_type', isEqualTo: 'leader').where('is_in_group', isEqualTo: false).snapshots();
   }
 
   Stream<QuerySnapshot> snapshotServants(){
-    return this.userCollection.where('user_type', isEqualTo: 'servant').snapshots();
+    return this.userCollection.where('user_type', isEqualTo: 'servant').where('is_in_group', isEqualTo: false).snapshots();
   }
 
 }

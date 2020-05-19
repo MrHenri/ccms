@@ -1,7 +1,9 @@
 import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/models/user_group.dart';
+import 'package:ccms/backend/services/user_group_management.dart';
 import 'package:ccms/backend/services/user_management.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +16,13 @@ class _GroupCreationState extends State<GroupCreationPage>{
   final watchGroupName = TextEditingController();
   final snapshotLeaders = UserManagement().snapshotLeaders();
   final snapshotServants = UserManagement().snapshotServants();
-  final UserGroup newUserGroup = UserGroup();
-  User currentLeader = User();
+  final UserGroup currentUserGroup = UserGroup();
+
+  @override
+  void initState(){
+    super.initState();
+    watchGroupName.addListener(textListener);
+  }
 
   textListener() => setState(() {
   });
@@ -23,10 +30,10 @@ class _GroupCreationState extends State<GroupCreationPage>{
   List<User> _getMembers(){
     ///Return a list of recent added members.
     List<User> members = [];
-    if(currentLeader.getName() != null){
-      members = [currentLeader] + newUserGroup.getServants();
+    if(currentUserGroup.getLeader().getName() != null){
+      members = [currentUserGroup.getLeader()] + currentUserGroup.getServants();
     }else{
-      members = newUserGroup.getServants();
+      members = currentUserGroup.getServants();
     }
     return members;
   }
@@ -68,17 +75,14 @@ class _GroupCreationState extends State<GroupCreationPage>{
                         onPressed: (){
                           setState(() {
                             //setting the leader information
-                            currentLeader.setName(leaderSnapshot.data['name']);
-                            currentLeader.setEmail(leaderSnapshot.data['email']);
-                            currentLeader.setCellphone(leaderSnapshot.data['cellPhone']);
-                            currentLeader.setDiscipulador(leaderSnapshot.data['discipulador']);
-                            currentLeader.setCelula(leaderSnapshot.data['célula']);
-                            currentLeader.setTypeDriver(leaderSnapshot.data['type_driver']);
-                            currentLeader.setUid(leaderSnapshot.documentID);
-                            currentLeader.assignLeadership();
-
-                            //assigning the leader as a new group leader
-                            this.newUserGroup.setLeader(currentLeader);
+                            currentUserGroup.getLeader().setName(leaderSnapshot.data['name']);
+                            currentUserGroup.getLeader().setEmail(leaderSnapshot.data['email']);
+                            currentUserGroup.getLeader().setCellphone(leaderSnapshot.data['cellPhone']);
+                            currentUserGroup.getLeader().setDiscipulador(leaderSnapshot.data['discipulador']);
+                            currentUserGroup.getLeader().setCelula(leaderSnapshot.data['célula']);
+                            currentUserGroup.getLeader().setTypeDriver(leaderSnapshot.data['type_driver']);
+                            currentUserGroup.getLeader().setFirebaseReference(leaderSnapshot.reference);
+                            currentUserGroup.getLeader().assignLeadership();
 
                             //returning to previous page
                             setState(() {
@@ -142,24 +146,24 @@ class _GroupCreationState extends State<GroupCreationPage>{
                         color: Colors.indigo,
                         onPressed: (){
                           setState(() {
-                            if (newUserGroup.searchServant(servantSnapshot.data['email'])){
+                            if (currentUserGroup.searchServant(servantSnapshot.data['email'])){
                               //this condition is to check if the servant was selected previously
                               setState(() {
-                                _showAlreadySelectedServantDialog();
+                                _showFlushBar('Atenção:', 'Este servo já foi adicionado.');
                               });
                             }else {
-                              User currentServant = User(
-                                name: servantSnapshot.data['name'],
-                                email: servantSnapshot.data['email'],
-                                cellphone: servantSnapshot.data['cellPhone'],
-                                discipulador: servantSnapshot.data['cellPhone'],
-                                celula: servantSnapshot.data['célula'],
-                                uid: servantSnapshot.data['uid'],
-                              );
-                              currentServant.setTypeDriver(servantSnapshot.data['type_driver']);
-                              currentServant.setUid(servantSnapshot.documentID);
+                              //if the servant was selected, he a new user object is initialized with your corresponding data
+                              User currentServant = User(isInGroup: false);
 
-                              newUserGroup.addServant(currentServant);
+                              currentServant.setName(servantSnapshot.data['name']);
+                              currentServant.setEmail(servantSnapshot.data['email']);
+                              currentServant.setCellphone(servantSnapshot.data['cellPhone']);
+                              currentServant.setDiscipulador(servantSnapshot.data['discipulador']);
+                              currentServant.setCelula(servantSnapshot.data['célula']);
+                              currentServant.setTypeDriver(servantSnapshot.data['type_driver']);
+                              currentServant.setFirebaseReference(servantSnapshot.reference);
+
+                              currentUserGroup.addServant(currentServant);
                               setState(() {
                                 Navigator.of(context).pop();
                               });
@@ -177,25 +181,14 @@ class _GroupCreationState extends State<GroupCreationPage>{
     );
   }
 
-  void _showAlreadySelectedServantDialog(){
-    showDialog(
-      context: context,
-      builder: (BuildContext context){
-        return AlertDialog(
-          title: Text('Esse membro já foi adicionado ao grupo.', style: TextStyle(fontSize: 16)),
-          contentPadding: EdgeInsets.fromLTRB(6, 4, 6, 6),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Fechar'),
-              onPressed: (){
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      }
-    );
+  Flushbar _showFlushBar(String title, String message){
+    String _title = title;
+    String _message = message;
+    return Flushbar(
+      title: _title,
+      message: _message,
+      duration: Duration(seconds: 3),
+    )..show(context);
   }
 
   void _servantsPage(){
@@ -214,85 +207,124 @@ class _GroupCreationState extends State<GroupCreationPage>{
   }
 
   Widget _groupListView(){
+    ///Builds a list view of all members recently added to the new group.
     return FutureBuilder(
       future: _getMembersDetails(),
-      builder: (context, snapshot){
-        if (snapshot.connectionState == ConnectionState.none &&
-            snapshot.hasData == null) {
-          print('project snapshot data is: ${snapshot.data}');
-          return Container();
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
         }
-        return ListView.separated(
-            shrinkWrap: true,
-            separatorBuilder: (context, index) => Divider(color: Colors.grey),
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index){
-          return ListTile(
-              title: Text('${snapshot.data[index].getName()}'),
-              subtitle: Text('Célula: ${snapshot.data[index].getCelula()}\nHabilitação: ${snapshot.data[index].getTypeDriver()}'),
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: (){
-                  setState(() {
-                    newUserGroup.removeMember(snapshot.data[index]);
-                    if (currentLeader.getEmail() != newUserGroup.getLeader().getEmail()){
-                      currentLeader = User();
-                    }
-                    setState(() {});
-                });
-              }),
+        switch (snapshot.connectionState) {
+//          case ConnectionState.waiting:
+//            return Text('Carregando membros');
+        //Here is where on null method is called
+          default:
+
+            return ListView.separated(
+                shrinkWrap: true,
+                separatorBuilder: (context, index) =>
+                    Divider(color: Colors.grey),
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('${snapshot.data[index].getName()}'),
+                    subtitle: Text('Célula: ${snapshot.data[index]
+                        .getCelula()}\nHabilitação: ${snapshot.data[index]
+                        .getTypeDriver()}'),
+                    trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            currentUserGroup.removeMember(snapshot.data[index]);
+
+                            setState(() {});
+                          });
+                        }),
+                    );
+                }
             );
           }
-        );
-      },
-    );
+      });
   }
+
 
 
   FlatButton addMemberButton(){
-    ///Return a button in screen, which description will depend if the leader was selected or not.
+    ///Return a button on screen, which statement will depend if the leader was selected or not, or if the group is full.
 
-    void setLeaderState(){
-      setState(() {
-        _leadersPage();
-      });
-    }
-
-    void setServantState(){
-      setState(() {
-        _servantsPage();
-      });
-    }
-
-    if (currentLeader.getName() == null) {
-      //this conditional will be check if there is a leader already selected
+    if (currentUserGroup.getLeader().getName() == null) {
+      //this conditional will check if there is a leader already selected
       return FlatButton(
         padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
         color: Colors.indigo,
         onPressed: (){
-          setLeaderState();
+          setState(() {
+            _leadersPage();
+          });
         },
         child: Text('Adicionar Líder'),
       );
-    } else {
 
+    } else if(_getMembers().length > 6){
+      //this conditional will check if the group is full
       return FlatButton(
-        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-        color: Colors.indigo,
-        onPressed: (){
-          setServantState();
-        },
-        child: Text('Adicionar Servo'),
+          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+          disabledColor: Colors.white30,
+          onPressed: null,
+          child: Text('Adicionar Servo'),
       );
     }
+
+    return FlatButton(
+      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+      color: Colors.indigo,
+      onPressed: (){
+        setState(() {
+          _servantsPage();
+        });
+      },
+      child: Text('Adicionar Servo'),
+    );
   }
 
-
-  @override
-  void initState(){
-    super.initState();
-    watchGroupName.addListener(textListener);
+  FlatButton registerGroupButton(){
+    if (currentUserGroup.getLeader().getName() == null){
+      return FlatButton(
+          padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+          disabledColor: Colors.white30,
+          onPressed: null,
+          child: Text('Concluir')
+      );
+    }
+    return FlatButton(
+        padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+        color: Colors.indigo,
+        onPressed: (){
+          if (watchGroupName.text.length > 18){
+            setState(() {
+              _showFlushBar('Atenção:', 'O nome do grupo deve possuir no máximo 18 caracteres.');
+            });
+          }else{
+            setState(() {
+              currentUserGroup.setGroupName(watchGroupName.text);
+              //UserGroupManagement().storeNewUserGroup(this.currentUserGroup);
+              //Uncomment line above to REAL STORAGE OF THE GROUP DATA ON FIREBASE.
+              setState(() {
+                _showFlushBar('Processo concluído.', 'O grupo foi criado com sucesso.');
+              });
+              Future.delayed(Duration(milliseconds: 1500), (){
+                setState(() {
+                  Navigator.pushReplacementNamed(context, '/groupCreationPage');
+                  //this line need to be modified to route the page to the group list page (not implemented yet)
+                });
+              });
+            });
+          }
+        },
+        child: Text('Concluir')
+    );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -331,22 +363,17 @@ class _GroupCreationState extends State<GroupCreationPage>{
                 SizedBox(width: 10),
               ],
             ),
+
             _groupListView(),
+
             ButtonBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
 
                 addMemberButton(),
 
-                FlatButton(
-                  padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-                  color: Colors.indigo,
-                  onPressed: (){
+                registerGroupButton(),
 
-                  },
-                  child: Text('Concluir'),
-
-                ),
               ],
             )
           ],
