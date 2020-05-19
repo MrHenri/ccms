@@ -135,7 +135,8 @@ class _GroupCreationState extends State<GroupCreationPage>{
                     DocumentSnapshot servantSnapshot = snapshot.data.documents[index];
                     return ListTile(
                       title: Text('${servantSnapshot.data['name']}'),
-                      subtitle: Text('Célula: ${servantSnapshot.data['célula']}\nHabilitação: ${servantSnapshot.data['type_driver']}'),
+                      subtitle: Text(
+                          'Célula: ${servantSnapshot.data['célula']}\nHabilitação: ${servantSnapshot.data['type_driver']}'),
                       trailing: IconButton(
                         icon: Icon(Icons.add_box),
                         iconSize: 40,
@@ -198,18 +199,17 @@ class _GroupCreationState extends State<GroupCreationPage>{
     );
   }
 
-  void _servantsPage(){
-    ///Creates a new page route in a Scaffold widget, loading all servants in the new page.
-    Navigator.of(context).push(MaterialPageRoute<void>(
-        builder:(BuildContext context){
-          return Scaffold(
-            appBar: AppBar(title: Text('Servos'), backgroundColor: Colors.indigo),
-            body: SingleChildScrollView(
-              child: _buildServants(),
-            ),
-          );
-        }
-    )
+  void _showSelectServant(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return Container(
+          child: AlertDialog(
+            title: Text("Adicionar Servos"),
+            content: _buildServants()
+          ),
+        );
+      }
     );
   }
 
@@ -229,7 +229,10 @@ class _GroupCreationState extends State<GroupCreationPage>{
             itemBuilder: (context, index){
           return ListTile(
               title: Text('${snapshot.data[index].getName()}'),
-              subtitle: Text('Célula: ${snapshot.data[index].getCelula()}\nHabilitação: ${snapshot.data[index].getTypeDriver()}'),
+              subtitle: Text(
+                  'Célula: ${snapshot.data[index].getCelula()}\n'
+                      'Habilitação: ${snapshot.data[index].getTypeDriver()}\n'
+                      'cellphone: ${snapshot.data[index].getCellPhone()}'),
               trailing: IconButton(
                 icon: Icon(Icons.delete),
                 onPressed: (){
@@ -260,7 +263,7 @@ class _GroupCreationState extends State<GroupCreationPage>{
 
     void setServantState(){
       setState(() {
-        _servantsPage();
+        _showSelectServant();
       });
     }
 
@@ -268,21 +271,31 @@ class _GroupCreationState extends State<GroupCreationPage>{
       //this conditional will be check if there is a leader already selected
       return FlatButton(
         padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-        color: Colors.indigo,
         onPressed: (){
           setLeaderState();
         },
-        child: Text('Adicionar Líder'),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Expanded(child: Text('Adicionar Líder', textAlign: TextAlign.center,)),
+            Icon(Icons.person_add)
+          ],
+        ),
       );
     } else {
 
       return FlatButton(
         padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-        color: Colors.indigo,
         onPressed: (){
           setServantState();
         },
-        child: Text('Adicionar Servo'),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Expanded(child: Text('Adicionar Servo', textAlign: TextAlign.center,)),
+              Icon(Icons.people)
+            ],
+          ),
       );
     }
   }
@@ -297,61 +310,86 @@ class _GroupCreationState extends State<GroupCreationPage>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(title: Text('Criar Grupo'), backgroundColor: Colors.indigo,),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Divider(color: Colors.transparent),
-
-            Row(
-              children: <Widget>[
-
-                SizedBox(width: 5),
-
-                Center(
-                  child: Text('Nome do Grupo: ',
-                    style: TextStyle(fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: Colors.amberAccent,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5,
+                        spreadRadius: 3,
+                      )
+                    ]),
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: watchGroupName,
+                  style: TextStyle(
+                      fontSize: 28, letterSpacing: 2, fontWeight: FontWeight.bold),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      labelText: "Equipe",
+                      labelStyle: TextStyle(
+                        fontSize: 18,
+                      )),
                 ),
-
-                SizedBox(width: 10),
-
-                Expanded(
-                  child: TextField(
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+              ),
+              _groupListView(),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(8, 16, 8, 20),
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 5,
+                              spreadRadius: 3,
+                            )
+                          ]),
+                      child: addMemberButton()
                     ),
-                    controller: watchGroupName,
                   ),
-                ),
-
-                SizedBox(width: 10),
-              ],
-            ),
-            _groupListView(),
-            ButtonBar(
-              alignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-
-                addMemberButton(),
-
-                FlatButton(
-                  padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-                  color: Colors.indigo,
-                  onPressed: (){
-
-                  },
-                  child: Text('Concluir'),
-
-                ),
-              ],
-            )
-          ],
-        ),
-      )
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(8, 16, 8, 20),
+                      decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 5,
+                              spreadRadius: 3,
+                            )
+                          ]),
+                      child: FlatButton(
+                        onPressed: (){},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Expanded(child: Text("Concluir", textAlign: TextAlign.center,)),
+                            Icon(Icons.save)
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        )
+      ),
     );
   }
 }

@@ -19,7 +19,7 @@ class SmtApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
 //        '/': (context) => LoadingPage(),
-//        '/escala': (context) => EscalaPage(),
+        '/escala': (context) => EscalaPage(),
         '/': (context) => GroupCreationPage(),
         '/equipeCreator':(context) => EquipeCreator(),
         '/login': (context) => LoginPage(),

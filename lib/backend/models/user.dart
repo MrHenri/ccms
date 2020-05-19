@@ -24,6 +24,7 @@ class User {
   String getEmail() => this.email;
   String getTypeDriver() => typeDriverToString(this.typeDriver);
   String getUserType() => userTypeToString(this.userType);
+  String getCellPhone() => this.cellphone;
   String getCelula() => this.celula;
 
   ///setters
