@@ -1,4 +1,6 @@
 enum UserType {
   leader,
-  servant,
+  servant
 }
+
+String userTypeToString(Object object) => object.toString().split('.').last;
