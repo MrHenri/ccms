@@ -1,22 +1,26 @@
 import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/models/user_type.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserGroup {
   ///attributes
   String _groupName;
   List <User> _servants = [];
-  User _groupLeader = User();
+  User _groupLeader = User(isInGroup: true);
+  DocumentReference groupReference;
   bool _onService = false;
 
   ///getters
-  String getName() => this._groupName;
-
+  String getGroupName() => this._groupName;
   User getLeader() => this._groupLeader;
-
   List <User> getServants() => this._servants;
+  DocumentReference getGroupReference() => this.groupReference;
+
+  ///setters
+  void setGroupName(String groupName) => this._groupName = groupName;
+  void setGroupReference(DocumentReference reference) => this.groupReference = reference;
 
   ///methods
-
   void addAllMembers(User leader, User servant1, User servant2, User servant3, User servant4, User servant5, User servant6){
     ///Adds all members of a group checking if the first one is a leader.
     if (leader.userType == UserType.leader){

@@ -1,5 +1,6 @@
 import 'package:ccms/backend/models/type_driver.dart';
 import 'package:ccms/backend/models/user_type.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
   String name;
@@ -10,12 +11,12 @@ class User {
   String celula;
   DateTime birthday;
   TypeDriver typeDriver;
-  String uid;
+  DocumentReference reference;
   UserType userType = UserType.servant; //enum representing the userType (leader or servant)
   bool isInGroup = false;
 
   User({this.name, this.email, this.password, this.cellphone,
-    this.discipulador, this.celula, this.birthday, this.typeDriver, this.uid});
+    this.discipulador, this.celula, this.birthday, this.typeDriver, this.isInGroup});
 
   User.login({this.email, this.password});
 
@@ -26,6 +27,7 @@ class User {
   String getUserType() => userTypeToString(this.userType);
   String getCellPhone() => this.cellphone;
   String getCelula() => this.celula;
+  DocumentReference getFirebaseReference() => this.reference;
 
   ///setters
   void setName(name) => this.name = name;
@@ -52,7 +54,7 @@ class User {
        break;
    }
   }
-  void setUid(uid) => this.uid = uid;
+  void setFirebaseReference(reference) => this.reference = reference;
 
   void assignLeadership(){
     this.userType = UserType.leader;
