@@ -35,6 +35,7 @@ class _LoginButtonState extends State<LoginButton> {
   loginConfirm()async{
     FirebaseUser user = await Login(context).signIn(widget.user);
     if (user != null) {
+
       Scaffold.of(context).showSnackBar(
           SnackBar(content: Text("Login efetuado com sucesso")));
       Navigator.of(context).pushReplacementNamed('/home');

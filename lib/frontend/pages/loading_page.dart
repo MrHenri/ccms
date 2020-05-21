@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -9,15 +10,20 @@ class LoadingPage extends StatefulWidget {
 class _LoadingPageState extends State<LoadingPage> {
 
   @override
-  void initState() {
+  void initState(){
     super.initState();
-    Future.delayed(const Duration(seconds: 2),(){
-      initiateApp();
-    });
+    initiateApp();
+
   }
 
-  void initiateApp(){
-    Navigator.pushReplacementNamed(context, '/login');
+  void initiateApp()async{
+    await FirebaseAuth.instance.currentUser().then((firebaseUser) {
+      if(firebaseUser != null) {
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (Route<dynamic> route) => false);
+      }else{
+        Navigator.pushNamedAndRemoveUntil(context, '/login', (Route<dynamic> route) => false);
+      }
+    });
   }
 
   @override

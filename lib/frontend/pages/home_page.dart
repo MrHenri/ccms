@@ -1,7 +1,4 @@
-import 'package:ccms/backend/dao/Login_validation.dart';
 import 'package:ccms/frontend/home_widgets/drawer_home.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,7 +7,6 @@ class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
-
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -21,7 +17,6 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         key: _scaffoldKey,
         drawer: DrawerHome(scaffoldKey: _scaffoldKey),
-
         body: Stack(
           children: <Widget>[
             Positioned(
@@ -33,18 +28,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            FirebaseAuth.instance
-                .signOut()
-                .then((value) {
-                  Login().signOut();
-                  Navigator.pushReplacementNamed(context, '/login');
-                })
-                .catchError((e){print(e);});
-          },
-          child: Text("Back"),
         ),
       ),
     );
