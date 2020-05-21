@@ -16,11 +16,11 @@ class SmtApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-//        '/': (context) => LoadingPage(),
-        '/': (context) => GroupCreationPage(),
+        //'/': (context) => LoadingPage(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
         '/home': (context) => HomePage(),
+        '/': (context) => HomePage(),
         '/services': (context) => Services(),
         '/groupCreationPage': (context) => GroupCreationPage(),
       },
