@@ -13,37 +13,24 @@ class DrawerHome extends StatefulWidget {
 }
 
 class _DrawerHomeState extends State<DrawerHome> {
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-//            ListTile(
-//              title: Text("Perfil"),
-//              leading: Builder(
-//                builder: (BuildContext context) {
-//                  return IconButton(
-//                    icon: Icon(
-//                      IconData(59475, fontFamily: 'MaterialIcons'),
-//                    ),
-//                    onPressed: () {
-//                      widget.scaffoldKey.currentState.openDrawer();
-//                    },
-//                  );
-//                },
-//              ),
-//            ),
-          FlatButton(
-            splashColor: Colors.transparent,
-            padding: EdgeInsets.all(8),
-            onPressed: (){},
-            child: CircleAvatar(
-              child: Icon(Icons.person, size: 35,),
-              radius: 35,
+            FlatButton(
+              splashColor: Colors.transparent,
+              padding: EdgeInsets.all(8),
+              onPressed: () {},
+              child: CircleAvatar(
+                child: Icon(
+                  Icons.person,
+                  size: 35,
+                ),
+                radius: 35,
+              ),
             ),
-          ),
             FlatButton(
               onPressed: () => Navigator.of(context).pushNamed('/escala'),
               child: ListTile(
