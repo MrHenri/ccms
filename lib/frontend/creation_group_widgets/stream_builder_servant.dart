@@ -1,6 +1,7 @@
 import 'package:ccms/backend/dao/setting_members.dart';
 import 'package:ccms/backend/models/user_group.dart';
 import 'package:ccms/backend/services/user_management.dart';
+import 'package:ccms/frontend/flushbar_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,9 @@ class StreamBuilderServant extends StatefulWidget {
   final UserGroup currentUserGroup;
   final ValueChanged<UserGroup> userGroupRefresh;
 
-  const StreamBuilderServant({Key key, this.currentUserGroup, this.userGroupRefresh}) : super(key: key);
+  const StreamBuilderServant(
+      {Key key, this.currentUserGroup, this.userGroupRefresh})
+      : super(key: key);
 
   @override
   _StreamBuilderServantState createState() => _StreamBuilderServantState();
@@ -38,7 +41,7 @@ class _StreamBuilderServantState extends State<StreamBuilderServant> {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot servantSnapshot =
-                    snapshot.data.documents[index];
+                        snapshot.data.documents[index];
                     return ListTile(
                       title: Text('${servantSnapshot.data['name']}'),
                       subtitle: Text(
@@ -52,10 +55,13 @@ class _StreamBuilderServantState extends State<StreamBuilderServant> {
                             //this condition is to check if the servant was selected previously
                             if (widget.currentUserGroup
                                 .searchServant(servantSnapshot.data['email'])) {
-                              _showFlushBar(
-                                  'Atenção:', 'Este servo já foi adicionado.');
+                              PersonalFlushBar().showFlushBar(
+                                  title: "Atenção",
+                                  message: "Este servo já foi adicionado",
+                                  context: context);
                             } else {
-                              SettingMembers(currentUserGroup: widget.currentUserGroup)
+                              SettingMembers(
+                                      currentUserGroup: widget.currentUserGroup)
                                   .settingServant(servantSnapshot);
                               widget.userGroupRefresh(widget.currentUserGroup);
                               Navigator.of(context).pop();
@@ -69,15 +75,5 @@ class _StreamBuilderServantState extends State<StreamBuilderServant> {
             }
           }
         });
-  }
-
-  Flushbar _showFlushBar(String title, String message) {
-    String _title = title;
-    String _message = message;
-    return Flushbar(
-      title: _title,
-      message: _message,
-      duration: Duration(seconds: 3),
-    )..show(context);
   }
 }

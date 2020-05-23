@@ -1,12 +1,10 @@
-import 'package:ccms/backend/dao/setting_members.dart';
-import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/models/user_group.dart';
 import 'package:ccms/backend/services/user_management.dart';
+import 'package:ccms/frontend/creation_group_widgets/addmember_button.dart';
 import 'package:ccms/frontend/creation_group_widgets/group_listview.dart';
+import 'package:ccms/frontend/creation_group_widgets/register_group_button.dart';
 import 'package:ccms/frontend/creation_group_widgets/stream_builder_leader.dart';
 import 'package:ccms/frontend/creation_group_widgets/stream_builder_servant.dart';
-import 'package:flushbar/flushbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GroupCreationPage extends StatefulWidget {
@@ -107,7 +105,8 @@ class _GroupCreationState extends State<GroupCreationPage> {
                                   spreadRadius: 3,
                                 )
                               ]),
-                          child: addMemberButton()),
+                          child: AddMemberButton(showSelectLeaders: showSelectLeaders, showSelectServant: showSelectServant, currentUserGroup: currentUserGroup,)
+                      ),
                     ),
                     Expanded(
                       child: Container(
@@ -122,7 +121,7 @@ class _GroupCreationState extends State<GroupCreationPage> {
                                 spreadRadius: 3,
                               )
                             ]),
-                        child: registerGroupButton(),
+                        child: RegisterGroupButton(currentUserGroup: currentUserGroup,groupName: watchGroupName.text),
                       ),
                     )
                   ],
@@ -135,7 +134,7 @@ class _GroupCreationState extends State<GroupCreationPage> {
 
 
 
-  void _showSelectLeaders() {
+  showSelectLeaders() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -149,7 +148,7 @@ class _GroupCreationState extends State<GroupCreationPage> {
         });
   }
 
-  void _showSelectServant() {
+  showSelectServant() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -163,108 +162,4 @@ class _GroupCreationState extends State<GroupCreationPage> {
         });
   }
 
-  Flushbar _showFlushBar(String title, String message) {
-    String _title = title;
-    String _message = message;
-    return Flushbar(
-      title: _title,
-      message: _message,
-      duration: Duration(seconds: 3),
-    )..show(context);
-  }
-
-  FlatButton addMemberButton() {
-    ///Return a button on screen, which statement will depend if the leader was selected or not, or if the group is full.
-
-    if (currentUserGroup.getLeader().getName() == null) {
-      //this conditional will check if there is a leader already selected
-      return FlatButton(
-        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-        onPressed: () {
-          setState(() {
-            _showSelectLeaders();
-          });
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Expanded(
-                child: Text(
-              'Adicionar Líder',
-              textAlign: TextAlign.center,
-            )),
-            Icon(Icons.person_add)
-          ],
-        ),
-      );
-    }
-    return FlatButton(
-      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-      onPressed: () {
-        setState(() {
-          _showSelectServant();
-        });
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Expanded(
-              child: Text(
-            'Adicionar Servo',
-            textAlign: TextAlign.center,
-          )),
-          Icon(Icons.people)
-        ],
-      ),
-    );
-  }
-
-  FlatButton registerGroupButton() {
-    if (currentUserGroup.getLeader().getName() == null) {
-      return FlatButton(
-        onPressed: null,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Expanded(
-                child: Text(
-              "Concluir",
-              textAlign: TextAlign.center,
-            )),
-            Icon(Icons.save)
-          ],
-        ),
-      );
-    }
-    return FlatButton(
-      onPressed: () {
-        if (watchGroupName.text.length > 18) {
-          _showFlushBar('Atenção:',
-              'O nome do grupo deve possuir no máximo 18 caracteres.');
-        } else {
-          currentUserGroup.setGroupName(watchGroupName.text);
-          //UserGroupManagement().storeNewUserGroup(this.currentUserGroup);
-          //Uncomment line above to REAL STORAGE OF THE GROUP DATA ON FIREBASE.
-          _showFlushBar(
-              'Processo concluído.', 'O grupo foi criado com sucesso.');
-          Future.delayed(Duration(milliseconds: 1500), () {
-            Navigator.pop(context);
-            Navigator.pushReplacementNamed(context, '/groupCreationPage');
-            //this line need to be modified to route the page to the group list page (not implemented yet)
-          });
-        }
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Expanded(
-              child: Text(
-            "Concluir",
-            textAlign: TextAlign.center,
-          )),
-          Icon(Icons.save)
-        ],
-      ),
-    );
-  }
 }

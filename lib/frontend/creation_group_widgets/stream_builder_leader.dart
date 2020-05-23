@@ -8,7 +8,9 @@ class StreamBuilderLeader extends StatefulWidget {
   final UserGroup currentUserGroup;
   final ValueChanged<UserGroup> userGroupRefresh;
 
-  const StreamBuilderLeader({Key key, this.currentUserGroup, this.userGroupRefresh}) : super(key: key);
+  const StreamBuilderLeader(
+      {Key key, this.currentUserGroup, this.userGroupRefresh})
+      : super(key: key);
 
   @override
   _StreamBuilderLeaderState createState() => _StreamBuilderLeaderState();
@@ -37,7 +39,7 @@ class _StreamBuilderLeaderState extends State<StreamBuilderLeader> {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot leaderSnapshot =
-                    snapshot.data.documents[index];
+                        snapshot.data.documents[index];
                     return ListTile(
                       title: Text('${leaderSnapshot.data['name']}'),
                       subtitle: Text(
@@ -48,7 +50,8 @@ class _StreamBuilderLeaderState extends State<StreamBuilderLeader> {
                         color: Colors.indigo,
                         onPressed: () {
                           setState(() {
-                            settingMembers(widget.currentUserGroup, leaderSnapshot);
+                            settingMembers(
+                                widget.currentUserGroup, leaderSnapshot);
                             widget.userGroupRefresh(widget.currentUserGroup);
                             Navigator.of(context).pop();
                           });
@@ -64,5 +67,4 @@ class _StreamBuilderLeaderState extends State<StreamBuilderLeader> {
 
   void settingMembers(UserGroup userGroup, DocumentSnapshot leaderSnapshot) =>
       SettingMembers(currentUserGroup: userGroup).settingLeader(leaderSnapshot);
-
 }
