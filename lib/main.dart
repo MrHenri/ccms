@@ -1,4 +1,5 @@
 import 'package:ccms/frontend/pages/group_creation_page.dart';
+import 'package:ccms/frontend/pages/group_page.dart';
 import 'package:ccms/frontend/pages/home_page.dart';
 import 'package:ccms/frontend/pages/loading_page.dart';
 import 'package:ccms/frontend/pages/login_page.dart';
@@ -21,6 +22,7 @@ class SmtApp extends StatelessWidget {
         '/signup': (context) => SignupPage(),
         '/home': (context) => HomePage(),
         '/services': (context) => Services(),
+        '/groupPage': (context) => GroupPage(),
         '/groupCreationPage': (context) => GroupCreationPage(),
       },
     );

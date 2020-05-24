@@ -46,7 +46,7 @@ class _DrawerHomeState extends State<DrawerHome> {
             ),
             FlatButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/groupCreationPage');
+                Navigator.of(context).pushNamed('/groupPage');
               },
               child: ListTile(
                 title: Text("Edição de grupo"),

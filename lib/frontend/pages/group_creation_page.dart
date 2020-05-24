@@ -34,86 +34,69 @@ class _GroupCreationState extends State<GroupCreationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Text(
-              "Criação de Equipe",
-              style: TextStyle(color: Colors.black),
-            ),
-            backgroundColor: Colors.blue,
-            elevation: 16,
-            leading: Container(
-              margin: EdgeInsets.all(6),
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Icon(
-                  Icons.group_add,
-                  color: Colors.blue,
-                ),
+    return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(
+            "Criação de Equipe",
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.blue,
+          elevation: 16,
+          leading: Container(
+            margin: EdgeInsets.all(6),
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.group_add,
+                color: Colors.blue,
               ),
             ),
           ),
-          backgroundColor: Colors.grey[100],
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(8, 16, 8, 8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 5,
-                        )
-                      ]),
-                  child: TextFormField(
-                    textAlign: TextAlign.center,
-                    controller: watchGroupName,
-                    style: TextStyle(
-                      fontSize: 28,
-                      letterSpacing: 2,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        labelText: "Equipe",
-                        labelStyle: TextStyle(
-                          fontSize: 18,
-                        )),
+        ),
+        backgroundColor: Colors.grey[100],
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(8, 16, 8, 8),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5,
+                      )
+                    ]),
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  controller: watchGroupName,
+                  style: TextStyle(
+                    fontSize: 28,
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.bold,
                   ),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      labelText: "Equipe",
+                      labelStyle: TextStyle(
+                        fontSize: 18,
+                      )),
                 ),
-                GroupListView(
-                    currentUserGroup: currentUserGroup,
-                    userGroupRefresh: updateGroupList),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                          margin: EdgeInsets.fromLTRB(8, 16, 8, 20),
-                          decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 5,
-                                  spreadRadius: 3,
-                                )
-                              ]),
-                          child: AddMemberButton(showSelectLeaders: showSelectLeaders, showSelectServant: showSelectServant, currentUserGroup: currentUserGroup,)
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
+              ),
+              GroupListView(
+                  currentUserGroup: currentUserGroup,
+                  userGroupRefresh: updateGroupList),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
                         margin: EdgeInsets.fromLTRB(8, 16, 8, 20),
                         decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.blue,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10)),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black12,
@@ -121,15 +104,30 @@ class _GroupCreationState extends State<GroupCreationPage> {
                                 spreadRadius: 3,
                               )
                             ]),
-                        child: RegisterGroupButton(currentUserGroup: currentUserGroup,groupName: watchGroupName.text),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          )),
-    );
+                        child: AddMemberButton(showSelectLeaders: showSelectLeaders, showSelectServant: showSelectServant, currentUserGroup: currentUserGroup,)
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(8, 16, 8, 20),
+                      decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 5,
+                              spreadRadius: 3,
+                            )
+                          ]),
+                      child: RegisterGroupButton(currentUserGroup: currentUserGroup,groupName: watchGroupName.text),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ));
   }
 
 
