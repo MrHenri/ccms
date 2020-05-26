@@ -347,7 +347,6 @@ class _GroupCreationState extends State<GroupCreationPage>{
                     textAlign: TextAlign.center,
                   ),
                 ),
-<<<<<<< Updated upstream
 
                 SizedBox(width: 10),
 
@@ -356,29 +355,6 @@ class _GroupCreationState extends State<GroupCreationPage>{
                     autocorrect: false,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-=======
-                GroupListView(
-                    currentUserGroup: currentUserGroup,
-                    userGroupRefresh: updateGroupList),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                          margin: EdgeInsets.fromLTRB(8, 16, 8, 20),
-                          decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 5,
-                                  spreadRadius: 3,
-                                )
-                              ]),
-                          child: AddMemberButton(showSelectLeaders: showSelectLeaders, showSelectServant: showSelectServant, currentUserGroup: currentUserGroup,)
-                      ),
->>>>>>> Stashed changes
                     ),
                     controller: watchGroupName,
                   ),
@@ -398,7 +374,6 @@ class _GroupCreationState extends State<GroupCreationPage>{
 
                 registerGroupButton(),
 
-<<<<<<< Updated upstream
               ],
             )
           ],
@@ -406,6 +381,4 @@ class _GroupCreationState extends State<GroupCreationPage>{
       )
     );
   }
-=======
->>>>>>> Stashed changes
 }

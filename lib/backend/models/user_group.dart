@@ -7,18 +7,18 @@ class UserGroup {
   String _groupName;
   List <User> _servants = [];
   User _groupLeader = User(isInGroup: true);
-  String groupID;
+  DocumentReference groupReference;
   bool _onService = false;
 
   ///getters
   String getGroupName() => this._groupName;
   User getLeader() => this._groupLeader;
   List <User> getServants() => this._servants;
-  String getGroupID() => this.groupID;
+  DocumentReference getGroupReference() => this.groupReference;
 
   ///setters
   void setGroupName(String groupName) => this._groupName = groupName;
-  void setGroupID(String groupID) => this.groupID = groupID;
+  void setGroupReference(DocumentReference reference) => this.groupReference = reference;
 
   ///methods
   void addAllMembers(User leader, User servant1, User servant2, User servant3, User servant4, User servant5, User servant6){

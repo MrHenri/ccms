@@ -11,7 +11,7 @@ class User {
   String celula;
   DateTime birthday;
   TypeDriver typeDriver;
-  String documentID;
+  DocumentReference reference;
   UserType userType = UserType.servant; //enum representing the userType (leader or servant)
   bool isInGroup = false;
 
@@ -26,7 +26,7 @@ class User {
   String getTypeDriver() => typeDriverToString(this.typeDriver);
   String getUserType() => userTypeToString(this.userType);
   String getCelula() => this.celula;
-  String getDocumentID() => this.documentID;
+  DocumentReference getFirebaseReference() => this.reference;
 
   ///setters
   void setName(name) => this.name = name;
@@ -53,7 +53,7 @@ class User {
        break;
    }
   }
-  void setDocumentID(documentID) => this.documentID = documentID;
+  void setFirebaseReference(reference) => this.reference = reference;
 
   void assignLeadership(){
     this.userType = UserType.leader;
