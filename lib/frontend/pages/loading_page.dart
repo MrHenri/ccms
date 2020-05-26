@@ -11,6 +11,7 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     super.initState();
+<<<<<<< Updated upstream
     Future.delayed(const Duration(seconds: 2),(){
       initiateApp();
     });
@@ -18,6 +19,9 @@ class _LoadingPageState extends State<LoadingPage> {
 
   void initiateApp(){
     Navigator.pushReplacementNamed(context, '/login');
+=======
+    initiateApp();
+>>>>>>> Stashed changes
   }
 
   @override
@@ -32,4 +36,19 @@ class _LoadingPageState extends State<LoadingPage> {
       ),
     );
   }
+
+  void initiateApp() async {
+    await FirebaseAuth.instance.currentUser().then((firebaseUser) {
+      if (firebaseUser != null) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/home', (Route<dynamic> route) => false);
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/login', (Route<dynamic> route) => false);
+      }
+    });
+  }
 }
+
+
+
