@@ -16,7 +16,7 @@ class SettingMembers{
     currentUserGroup.getLeader().setDiscipulador(leaderSnapshot.data['discipulador']);
     currentUserGroup.getLeader().setCelula(leaderSnapshot.data['célula']);
     currentUserGroup.getLeader().setTypeDriver(leaderSnapshot.data['type_driver']);
-    currentUserGroup.getLeader().setFirebaseReference(leaderSnapshot.reference);
+    currentUserGroup.getLeader().setDocumentID(leaderSnapshot.documentID);
     currentUserGroup.getLeader().assignLeadership();
   }
 
@@ -30,7 +30,7 @@ class SettingMembers{
     currentServant.setDiscipulador(servantSnapshot.data['discipulador']);
     currentServant.setCelula(servantSnapshot.data['célula']);
     currentServant.setTypeDriver(servantSnapshot.data['type_driver']);
-    currentServant.setFirebaseReference(servantSnapshot.reference);
+    currentServant.setDocumentID(servantSnapshot.documentID);
     currentUserGroup.addServant(currentServant);
   }
 
