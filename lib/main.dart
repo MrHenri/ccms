@@ -1,4 +1,3 @@
-import 'package:ccms/frontend/pages/escala_page.dart';
 import 'package:ccms/frontend/pages/group_creation_page.dart';
 import 'package:ccms/frontend/pages/home_page.dart';
 import 'package:ccms/frontend/pages/loading_page.dart';
@@ -19,7 +18,6 @@ class SmtApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoadingPage(),
-        '/escala': (context) => EscalaPage(),
         '/login': (context) => LoginPage(),
         '/signup': (context) => SignupPage(),
         '/home': (context) => HomePage(),
