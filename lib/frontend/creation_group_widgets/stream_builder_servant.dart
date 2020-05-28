@@ -26,7 +26,6 @@ class _StreamBuilderServantState extends State<StreamBuilderServant> {
     return StreamBuilder(
         stream: snapshotServants,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             }
@@ -73,7 +72,6 @@ class _StreamBuilderServantState extends State<StreamBuilderServant> {
                   },
                 );
             }
-          }
         });
   }
 }

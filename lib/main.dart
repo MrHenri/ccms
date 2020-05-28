@@ -4,6 +4,7 @@ import 'package:ccms/frontend/pages/home_page.dart';
 import 'package:ccms/frontend/pages/loading_page.dart';
 import 'package:ccms/frontend/pages/login_page.dart';
 import 'package:ccms/frontend/pages/signup_page.dart';
+import 'package:ccms/frontend/pages/training_page.dart';
 import 'package:flutter/material.dart';
 
 import 'frontend/pages/group_editor_page.dart';
@@ -26,6 +27,7 @@ class SmtApp extends StatelessWidget {
         '/groupPage': (context) => GroupPage(),
         '/groupCreationPage': (context) => GroupCreationPage(),
         '/groupEditorPage': (context) => GroupEditorPage(),
+        '/trainingPage': (context) => TrainingPage(),
       },
     );
   }

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:ccms/frontend/training_widgets.dart/video_play.dart';
 
-class Treinamentos extends StatefulWidget {
+class TrainingPage extends StatefulWidget {
   @override
-  _TreinamentosState createState() => _TreinamentosState();
+  _TrainingPageState createState() => _TrainingPageState();
 }
 
-class _TreinamentosState extends State<Treinamentos> {
+class _TrainingPageState extends State<TrainingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

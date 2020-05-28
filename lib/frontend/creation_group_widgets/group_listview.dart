@@ -1,6 +1,7 @@
 import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/models/user_group.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class GroupListView extends StatefulWidget {
   final UserGroup currentUserGroup;
@@ -28,18 +29,9 @@ class GroupListViewState extends State<GroupListView> {
 //              return Text('Carregando membros');
             //Here is where on null method is called
             default:
-              return Container(
+              return Card(
+                elevation: 6,
                 margin: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 5,
-                        spreadRadius: 0,
-                      )
-                    ]),
                 child: ListView.separated(
                     shrinkWrap: true,
                     controller: ScrollController(keepScrollOffset: false),

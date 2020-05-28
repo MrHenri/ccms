@@ -1,4 +1,8 @@
+import 'package:ccms/backend/services/user_group_management.dart';
+import 'package:ccms/frontend/creation_group_widgets/stream_builder_group.dart';
 import 'package:flutter/material.dart';
+
+import 'group_creation_page.dart';
 
 class GroupPage extends StatefulWidget {
   @override
@@ -6,6 +10,9 @@ class GroupPage extends StatefulWidget {
 }
 
 class _GroupPageState extends State<GroupPage> {
+
+  final snapshotGroup = UserGroupManagement().snapshotGroups();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,11 +35,12 @@ class _GroupPageState extends State<GroupPage> {
           ),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[150],
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){Navigator.of(context).pushNamed('/groupCreationPage');},
       ),
+      body: StreamBuilderGroup(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:ccms/backend/models/user_group.dart';
+import 'package:ccms/backend/services/user_group_management.dart';
 import 'package:ccms/frontend/flushbar_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -49,17 +50,8 @@ class _RegisterGroupButtonState extends State<RegisterGroupButton> {
           context: context);
     } else {
       widget.currentUserGroup.setGroupName(widget.groupName);
-      //UserGroupManagement().storeNewUserGroup(this.currentUserGroup);
-      //Uncomment line above to REAL STORAGE OF THE GROUP DATA ON FIREBASE.
-      PersonalFlushBar().showFlushBar(
-          title: "Processo concluído.",
-          message: "O grupo foi criado com sucesso.",
-          context: context);
-      Future.delayed(Duration(milliseconds: 1500), () {
-        Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, '/groupCreationPage');
-        //this line need to be modified to route the page to the group list page (not implemented yet)
-      });
+      UserGroupManagement().storeNewUserGroup(widget.currentUserGroup);
+      Navigator.pop(context);
     }
   }
 }
