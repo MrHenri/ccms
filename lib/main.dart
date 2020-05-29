@@ -1,3 +1,4 @@
+import 'package:ccms/frontend/pages/escala_page.dart';
 import 'package:ccms/frontend/pages/group_creation_page.dart';
 import 'package:ccms/frontend/pages/group_page.dart';
 import 'package:ccms/frontend/pages/home_page.dart';
@@ -28,6 +29,7 @@ class SmtApp extends StatelessWidget {
         '/groupCreationPage': (context) => GroupCreationPage(),
         '/groupEditorPage': (context) => GroupEditorPage(),
         '/trainingPage': (context) => TrainingPage(),
+        '/escalaPage': (context) => EscalaPage(),
       },
     );
   }

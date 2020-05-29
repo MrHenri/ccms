@@ -34,7 +34,7 @@ class _TrainingPageState extends State<TrainingPage> {
               child: Text('Tópico 2'),
               onPressed: () {
                 VideoPlay(
-                  videoPlayerController: VideoPlayerController.asset('assests/TheOfficeOpening.mp4'),
+                  videoPlayerController: VideoPlayerController.asset('assets/TheOfficeOpening.mp4'),
                   looping: true,
                 );
               }),
@@ -43,7 +43,7 @@ class _TrainingPageState extends State<TrainingPage> {
           child: RaisedButton(
               child: Text('Tópico 3'),
               onPressed: () {
-                VideoPlay(videoPlayerController: VideoPlayerController.asset('assests/TheOfficeOpening'),
+                VideoPlay(videoPlayerController: VideoPlayerController.asset('assets/TheOfficeOpening'),
                 looping: true,
                 );
               }),

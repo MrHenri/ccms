@@ -32,7 +32,7 @@ class _DrawerHomeState extends State<DrawerHome> {
               ),
             ),
             FlatButton(
-              onPressed: () => Navigator.of(context).pushNamed('/escala'),
+              onPressed: () => Navigator.of(context).pushNamed('/escalaPage'),
               child: ListTile(
                 title: Text("Escala"),
                 leading: Builder(
