@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class EscalaPage extends StatefulWidget {
   @override
@@ -6,6 +7,9 @@ class EscalaPage extends StatefulWidget {
 }
 
 class _EscalaPageState extends State<EscalaPage> {
+
+  List<String> meses = ["JANEIRO", "FERVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", "JULHO", "AGOSTO", "SETEMBO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,27 +33,37 @@ class _EscalaPageState extends State<EscalaPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           showSelectLeaders();
         },
         child: Icon(Icons.add),
       ),
     );
   }
+
   showSelectLeaders() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text("Preencha os campos"),
+              title: Text("Selecione um mês"),
               content: Container(
-                height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: <Widget>[
-                  ],
+                height: MediaQuery.of(context).size.height,
+                child: GridView.count(
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 3,
+                  shrinkWrap: true,
+                  children: List.generate(12, (index) {
+                    return Container(
+                      color: Colors.brown,
+                      child: Text(meses[index]),
+                    );
+                  })
                 ),
-              ));
+              )
+          );
         });
   }
 }
