@@ -22,8 +22,7 @@ class _TreinamentosState extends State<Treinamentos> {
             child: Text('Tópico 1'),
             onPressed: () {
               VideoPlay(
-                videoPlayerController:
-                    VideoPlayerController.asset('assets/TheOfficeOpening.mp4'),
+                videoPlayerController: VideoPlayerController.asset('assets/TheOfficeOpening.mp4'),
                 looping: true,
               );
             },
