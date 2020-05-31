@@ -76,7 +76,7 @@ class _DrawerHomeState extends State<DrawerHome> {
             ),
             FlatButton(
               onPressed: () {
-                widget.scaffoldKey.currentState.openDrawer();
+                Navigator.of(context).pushNamed('/trainingPage');
               },
               child: ListTile(
                 title: Text("Treinamentos"),

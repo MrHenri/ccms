@@ -1,3 +1,4 @@
+import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/models/user_group.dart';
 import 'package:ccms/backend/services/user_management.dart';
 import 'package:ccms/frontend/creation_group_widgets/addmember_button.dart';
@@ -159,5 +160,4 @@ class _GroupCreationState extends State<GroupCreationPage> {
               ));
         });
   }
-
 }
