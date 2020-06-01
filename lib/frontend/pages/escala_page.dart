@@ -34,35 +34,83 @@ class _EscalaPageState extends State<EscalaPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showSelectLeaders();
+          popMonthsEscala();
         },
         child: Icon(Icons.add),
       ),
     );
   }
 
-  showSelectLeaders() {
+
+  popTypeCulto(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          actions: <Widget>[
+            RaisedButton(
+              onPressed: () => changePop(false),
+              child: Icon(Icons.arrow_back),
+            ),
+            RaisedButton(
+              onPressed: () => Navigator.pop(context),
+              child: Icon(Icons.arrow_forward),
+            ),
+          ],
+        );
+      }
+    );
+  }
+
+  changePop(bool popDialog){
+    if(popDialog){
+      Navigator.pop(context);
+      popTypeCulto();
+    }else{
+      Navigator.pop(context);
+      popMonthsEscala();
+    }
+  }
+
+  popMonthsEscala() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            actions: <Widget>[
+              RaisedButton(
+                onPressed: () => changePop(true),
+                child: Icon(Icons.arrow_forward),
+              )
+            ],
               title: Text("Selecione um mês"),
               content: Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
                 child: GridView.count(
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  children: List.generate(12, (index) {
-                    return Container(
-                      color: Colors.brown,
-                      child: Text(meses[index]),
-                    );
-                  })
-                ),
-              )
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 6,
+                        shrinkWrap: true,
+                        children: List.generate(12, (index) {
+                          return RaisedButton(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                            onPressed: (){
+                            },
+                            color: Colors.green,
+                            child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text(
+                                  meses[index],
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ),
+                          );
+                        })
+                    ),
+              ),
           );
         });
   }

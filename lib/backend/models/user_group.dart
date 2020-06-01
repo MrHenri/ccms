@@ -1,6 +1,6 @@
 import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/models/user_type.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class UserGroup {
   ///attributes
