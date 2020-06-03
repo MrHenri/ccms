@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:ccms/frontend/training_widgets.dart/video_play.dart';
+import 'package:ccms/backend/models/video.dart';
 
 class TrainingPage extends StatefulWidget {
   @override
@@ -12,19 +13,16 @@ class _TrainingPageState extends State<TrainingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Treinamentos'),
-          centerTitle: true,
-          backgroundColor: Colors.cyan,
-        ),
+        title: Text('Treinamentos'),
+        centerTitle: true,
+        backgroundColor: Colors.cyan,
+      ),
       body: Column(children: <Widget>[
         Center(
           child: RaisedButton(
             child: Text('Tópico 1'),
             onPressed: () {
-              VideoPlay(
-                videoPlayerController: VideoPlayerController.asset('assets/TheOfficeOpening.mp4'),
-                looping: true,
-              );
+              Navigator.of(context).pushNamed('/videoPage');
             },
           ),
         ),
@@ -32,19 +30,16 @@ class _TrainingPageState extends State<TrainingPage> {
           child: RaisedButton(
               child: Text('Tópico 2'),
               onPressed: () {
-                VideoPlay(
-                  videoPlayerController: VideoPlayerController.asset('assests/TheOfficeOpening.mp4'),
-                  looping: true,
-                );
+                Navigator.of(context).pushNamed('/videoPage');
               }),
         ),
         Center(
           child: RaisedButton(
               child: Text('Tópico 3'),
               onPressed: () {
-                VideoPlay(videoPlayerController: VideoPlayerController.asset('assests/TheOfficeOpening'),
-                looping: true,
-                );
+                Video().setVideoReference('assets/videos/MostPopularLanguages.mp4');
+                print(Video().getVideoReference());
+                Navigator.of(context).pushNamed('/videoPage');
               }),
         ),
       ]),
