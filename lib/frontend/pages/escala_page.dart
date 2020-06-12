@@ -1,4 +1,3 @@
-import 'package:ccms/backend/models/culto_type.dart';
 import 'package:ccms/frontend/escala_widgets/popup_add_escala.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -34,7 +33,7 @@ class _EscalaPageState extends State<EscalaPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          PopUpAddEscala(context).popMonthsEscala();
+          PopUpAddEscala(context).addEscalaDialog("");
         },
         child: Icon(Icons.add),
       ),
