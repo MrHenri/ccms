@@ -4,7 +4,7 @@ enum TypeCulto{
   Evento,
 }
 
-String typeDriverToString(Object object) {
+String typeCultoToString(Object object) {
   switch(object){
     case (TypeCulto.Celebracao):
       return 'Celebração';

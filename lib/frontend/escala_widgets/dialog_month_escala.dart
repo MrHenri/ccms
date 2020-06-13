@@ -1,9 +1,10 @@
-  import 'package:ccms/frontend/escala_widgets/popup_add_escala.dart';
+import 'package:ccms/backend/models/escala.dart';
+import 'package:ccms/frontend/escala_widgets/dialog_type_culto.dart';
 import 'package:flutter/material.dart';
 
-class PopMonthsEscala{
-
+class PopMonthsEscala {
   final BuildContext context;
+  Escala escala = Escala();
 
   List<String> months = [
     "Janeiro",
@@ -21,7 +22,7 @@ class PopMonthsEscala{
   ];
 
   PopMonthsEscala({this.context});
-  
+
   popMonthsEscala() {
     showDialog(
         context: context,
@@ -34,14 +35,16 @@ class PopMonthsEscala{
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 8,
                   crossAxisCount:
-                  MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 6,
+                      MediaQuery.of(context).orientation == Orientation.portrait ? 3 : 6,
                   shrinkWrap: true,
                   children: List.generate(12, (index) {
                     return RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
                       onPressed: () {
-                          PopUpAddEscala(context).addEscalaDialog("typeCelebration");
+                        escala.month = months[index];
+                        Navigator.pop(context);
+                        PopTypeCulto(escala: escala, context: context).popTypeCulto();
                       },
                       color: Colors.blue,
                       child: FittedBox(
@@ -59,4 +62,3 @@ class PopMonthsEscala{
         });
   }
 }
-

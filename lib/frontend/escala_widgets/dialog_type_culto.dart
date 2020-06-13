@@ -1,12 +1,15 @@
 import 'package:ccms/backend/models/culto_type.dart';
-import 'package:ccms/frontend/escala_widgets/popup_add_escala.dart';
+import 'package:ccms/backend/models/escala.dart';
+import 'package:ccms/frontend/pages/escala_creation_page.dart';
 import 'package:flutter/material.dart';
+import 'package:ccms/frontend/escala_widgets/dialog_month_escala.dart';
 
 class PopTypeCulto{
 
   final BuildContext context;
+  final Escala escala;
 
-  PopTypeCulto({this.context});
+  PopTypeCulto({this.escala, this.context});
 
   popTypeCulto() {
     showDialog(
@@ -18,16 +21,22 @@ class PopTypeCulto{
               title: Text("Escolha o tipo de culto"),
               actions: <Widget>[
                 RaisedButton(
-                  onPressed: () => PopUpAddEscala(context).addEscalaDialog("months"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    PopMonthsEscala(context: context).popMonthsEscala();
+                  },
                   child: Icon(Icons.arrow_back),
                 ),
                 RaisedButton(
                   color: Colors.green,
                   onPressed: () {
+                    print(escala.month);
                     Navigator.pop(context);
-                    Navigator.pushNamed(context, '/escalaCreationPage');
-                  },
-                  child: Text("Confirmar"),
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return EscalaCreationPage(escala: escala,);
+                    }));
+          },
+    child: Text("Confirmar"),
                 ),
               ],
               content: StatefulBuilder(
@@ -44,7 +53,9 @@ class PopTypeCulto{
                             onChanged: (TypeCulto value) {
                               setState(() {
                                 culto = value;
-                                //escala.culto = culto;
+                                escala.typeCulto = value;
+                                print(escala.typeCulto);
+                                print(escala.month);
                               });
                             },
                           ),
@@ -55,7 +66,7 @@ class PopTypeCulto{
                             onChanged: (TypeCulto value) {
                               setState(() {
                                 culto = value;
-                                //escala.culto = culto;
+                                escala.typeCulto = culto;
                               });
                             },
                           ),
@@ -66,7 +77,7 @@ class PopTypeCulto{
                             onChanged: (TypeCulto value) {
                               setState(() {
                                 culto = value;
-                                //escala.culto = culto;
+                                escala.typeCulto = culto;
                               });
                             },
                           ),
@@ -78,4 +89,5 @@ class PopTypeCulto{
               ));
         });
   }
-}
+    }
+
