@@ -30,7 +30,6 @@ class PopTypeCulto{
                 RaisedButton(
                   color: Colors.green,
                   onPressed: () {
-                    print(escala.month);
                     Navigator.pop(context);
                     Navigator.push(context, MaterialPageRoute(builder: (context){
                       return EscalaCreationPage(escala: escala,);
@@ -54,8 +53,6 @@ class PopTypeCulto{
                               setState(() {
                                 culto = value;
                                 escala.typeCulto = value;
-                                print(escala.typeCulto);
-                                print(escala.month);
                               });
                             },
                           ),

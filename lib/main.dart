@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'backend/models/escala.dart';
 import 'frontend/pages/group_editor_page.dart';
 import 'frontend/pages/services_page.dart';
-import 'package:provider/provider.dart';
 
 void main() => runApp(SmtApp());
 

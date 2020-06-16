@@ -1,12 +1,13 @@
 import 'package:ccms/backend/models/user_group.dart';
+import 'package:flutter/material.dart';
 
 class Turno {
 
-  DateTime serviceBegin;
-  DateTime serviceFinish;
-  List<DateTime> servicesOpitional;
+  TimeOfDay serviceBegin;
+  TimeOfDay serviceFinish;
+  List<TimeOfDay> servicesOpitional;
   List<UserGroup> groups;
 
-  Turno(this.serviceBegin, this.serviceFinish, this.servicesOpitional,
-      this.groups);
+  Turno({this.serviceBegin, this.serviceFinish, this.servicesOpitional,
+      this.groups});
 }
