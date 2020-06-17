@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:ccms/frontend/training_widgets.dart/video_play.dart';
+import 'package:ccms/frontend/widgets/training_widgets.dart/video_play.dart';
 
 class TrainingPage extends StatefulWidget {
   @override

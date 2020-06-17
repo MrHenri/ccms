@@ -1,5 +1,5 @@
 import 'package:ccms/backend/models/escala.dart';
-import 'package:ccms/frontend/escala_widgets/dialog_type_culto.dart';
+import 'package:ccms/frontend/widgets/escala_widgets/dialog_type_culto.dart';
 import 'package:flutter/material.dart';
 
 class PopMonthsEscala {

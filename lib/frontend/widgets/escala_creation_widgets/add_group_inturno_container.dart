@@ -1,4 +1,4 @@
-import 'package:ccms/frontend/escala_creation_widgets/adicionar_group_container.dart';
+import 'package:ccms/frontend/widgets/escala_creation_widgets/adicionar_group_container.dart';
 import 'package:flutter/material.dart';
 
 class AddGroupInTurnoContainer extends StatelessWidget {

@@ -1,11 +1,10 @@
-import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/models/user_group.dart';
 import 'package:ccms/backend/services/user_management.dart';
-import 'package:ccms/frontend/creation_group_widgets/addmember_button.dart';
-import 'package:ccms/frontend/creation_group_widgets/group_listview.dart';
-import 'package:ccms/frontend/creation_group_widgets/register_group_button.dart';
-import 'package:ccms/frontend/creation_group_widgets/stream_builder_leader.dart';
-import 'package:ccms/frontend/creation_group_widgets/stream_builder_servant.dart';
+import 'package:ccms/frontend/widgets/creation_group_widgets/addmember_button.dart';
+import 'package:ccms/frontend/widgets/creation_group_widgets/group_listview.dart';
+import 'package:ccms/frontend/widgets/creation_group_widgets/register_group_button.dart';
+import 'package:ccms/frontend/widgets/creation_group_widgets/stream_builder_leader.dart';
+import 'package:ccms/frontend/widgets/creation_group_widgets/stream_builder_servant.dart';
 import 'package:flutter/material.dart';
 
 class GroupCreationPage extends StatefulWidget {

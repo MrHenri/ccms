@@ -2,7 +2,7 @@ import 'package:ccms/backend/models/culto_type.dart';
 import 'package:ccms/backend/models/escala.dart';
 import 'package:ccms/frontend/pages/escala_creation_page.dart';
 import 'package:flutter/material.dart';
-import 'package:ccms/frontend/escala_widgets/dialog_month_escala.dart';
+import 'package:ccms/frontend/widgets/escala_widgets/dialog_month_escala.dart';
 
 class PopTypeCulto{
 
@@ -15,7 +15,8 @@ class PopTypeCulto{
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          TypeCulto culto;
+          TypeCulto culto = TypeCulto.Celebracao;
+          escala.typeCulto = culto;
 
           return AlertDialog(
               title: Text("Escolha o tipo de culto"),

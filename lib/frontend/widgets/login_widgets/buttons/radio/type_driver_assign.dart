@@ -1,4 +1,4 @@
-import 'package:ccms/frontend/login_widgets/buttons/radio/radio_type_driver.dart';
+import 'package:ccms/frontend/widgets/login_widgets/buttons/radio/radio_type_driver.dart';
 import 'package:flutter/material.dart';
 
 class TypeDriver extends StatefulWidget {

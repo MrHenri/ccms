@@ -1,6 +1,6 @@
 import 'package:ccms/backend/models/turno.dart';
-import 'package:ccms/frontend/escala_creation_widgets/add_group_inturno_container.dart';
-import 'package:ccms/frontend/escala_creation_widgets/time_of_turno_container.dart';
+import 'package:ccms/frontend/widgets/escala_creation_widgets/add_group_inturno_container.dart';
+import 'package:ccms/frontend/widgets/escala_creation_widgets/time_of_turno_container.dart';
 import 'package:flutter/material.dart';
 
 class ListTurnoBuilder extends StatefulWidget {

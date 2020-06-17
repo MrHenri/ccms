@@ -1,5 +1,5 @@
 import 'package:ccms/backend/models/turno.dart';
-import 'package:ccms/frontend/escala_creation_widgets/time_turno_picker.dart';
+import 'package:ccms/frontend/widgets/escala_creation_widgets/time_turno_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 

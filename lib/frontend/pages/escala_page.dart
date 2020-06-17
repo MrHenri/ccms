@@ -1,4 +1,4 @@
-import 'package:ccms/frontend/escala_widgets/dialog_month_escala.dart';
+import 'package:ccms/frontend/widgets/escala_widgets/dialog_month_escala.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
