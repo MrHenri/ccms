@@ -24,7 +24,7 @@ class TimeOfTurnoContainer extends StatelessWidget {
         color: Colors.white,
       ),
       child: Text(
-          "${turno.serviceBegin.format(context)} - ${turno.serviceFinish.format(context)}",
+          "Ínicio - ${turno.serviceBegin.format(context)}   Fim - ${turno.serviceFinish.format(context)}",
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 14)
       ),

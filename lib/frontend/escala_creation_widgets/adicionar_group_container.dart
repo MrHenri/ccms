@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AddGroupInTurnoContainer extends StatelessWidget {
+class AdicionarGroupContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,14 +17,14 @@ class AddGroupInTurnoContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         color: Colors.white,
       ),
-      margin: const EdgeInsets.all(16.0),
-      padding: const EdgeInsets.all(16.0),
+      margin: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(8),
       child: FittedBox(
         fit: BoxFit.contain,
         child: Row(
           children: <Widget>[
             Icon(Icons.add),
-            SizedBox(width: 16.0),
+            SizedBox(width: 8),
             Text("Adicionar Grupo"),
           ],
         ),

@@ -1,4 +1,4 @@
-import 'package:ccms/backend/dao/setting_members.dart';
+import 'package:ccms/backend/controllers/setting_members.dart';
 import 'package:ccms/backend/models/user_group.dart';
 import 'package:ccms/backend/services/user_management.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

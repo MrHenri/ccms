@@ -1,5 +1,5 @@
-import 'package:ccms/backend/dao/register_validation.dart';
-import 'package:ccms/backend/dao/Login_validation.dart';
+import 'package:ccms/backend/controllers/register_validation.dart';
+import 'package:ccms/backend/controllers/Login_validation.dart';
 import 'package:ccms/backend/models/user.dart';
 import 'package:flutter/material.dart';
 

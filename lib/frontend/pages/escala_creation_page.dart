@@ -1,9 +1,9 @@
 import 'package:ccms/backend/models/culto_type.dart';
 import 'package:ccms/backend/models/escala.dart';
 import 'package:ccms/backend/models/turno.dart';
-import 'package:ccms/frontend/escala_widgets/add_turno_inkwell.dart';
-import 'package:ccms/frontend/escala_widgets/escala_name_container.dart';
-import 'package:ccms/frontend/escala_widgets/list_turno_builder.dart';
+import 'package:ccms/frontend/escala_creation_widgets/add_turno_inkwell.dart';
+import 'package:ccms/frontend/escala_creation_widgets/escala_name_container.dart';
+import 'package:ccms/frontend/escala_creation_widgets/list_turno_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

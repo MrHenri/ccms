@@ -1,5 +1,5 @@
 import 'package:ccms/backend/models/calendar.dart';
-import 'package:ccms/backend/dao/register_validation.dart';
+import 'package:ccms/backend/controllers/register_validation.dart';
 import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/frontend/login_widgets/others/birthday_date_pick.dart';
 import 'package:ccms/frontend/login_widgets/buttons/flat/button_customized_container.dart';
