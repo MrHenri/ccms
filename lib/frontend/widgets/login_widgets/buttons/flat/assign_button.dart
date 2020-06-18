@@ -1,5 +1,4 @@
 import 'package:ccms/backend/controllers/register_validation.dart';
-import 'package:ccms/backend/controllers/Login_validation.dart';
 import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/services/auth_user.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class _AssignButtonState extends State<AssignButton> {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      onPressed: () async => assign(),
+      onPressed: () => assign(),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90)),
       child: Text(
         "CADASTRAR",

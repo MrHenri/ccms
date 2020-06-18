@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:ccms/backend/controllers/register_validation.dart';
 import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/services/user_management.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 abstract class BaseAuth {
   Future<FirebaseUser> signIn(User user);
   Future<FirebaseUser> signUp(User user);
-  Future<void> signOut();
+  void signOut();
 }
 class Auth implements BaseAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -45,7 +43,7 @@ class Auth implements BaseAuth {
   }
 
   @override
-  Future<void> signOut() {
+  void signOut() {
     FirebaseAuth.instance.signOut().then((value) {}).catchError((e) {
       print(e);
     });
