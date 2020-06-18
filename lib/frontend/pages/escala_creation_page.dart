@@ -2,6 +2,7 @@ import 'package:ccms/backend/models/culto_type.dart';
 import 'package:ccms/backend/models/escala.dart';
 import 'package:ccms/backend/models/turno.dart';
 import 'package:ccms/frontend/widgets/escala_creation_widgets/add_turno_inkwell.dart';
+import 'package:ccms/frontend/widgets/escala_creation_widgets/escala_bottom_navigation.dart';
 import 'package:ccms/frontend/widgets/escala_creation_widgets/escala_name_container.dart';
 import 'package:ccms/frontend/widgets/escala_creation_widgets/list_turno_builder.dart';
 import 'package:flutter/material.dart';
@@ -20,22 +21,15 @@ class EscalaCreationPage extends StatefulWidget {
 class _EscalaCreationPageState extends State<EscalaCreationPage> {
   Escala escala = Escala();
   List<Turno> turnos = List<Turno>();
+  int _selectedIndex = 0;
 
   _EscalaCreationPageState(this.escala);
-
-  refreshEscalaName(String escalaName) => escala.name = escalaName;
-
-  refreshTurnoList(Turno turno){
-    setState(() {
-      turnos.add(turno);
-      escala.turnos = turnos;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     String typeCultoText = typeCultoToString(escala.typeCulto);
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
@@ -55,14 +49,31 @@ class _EscalaCreationPageState extends State<EscalaCreationPage> {
           ),
         ),
       ),
-      body: ListView(
-        shrinkWrap: true,
-        children: <Widget>[
-          EscalaNameContainer(escalaNameRefresh: refreshEscalaName),
-          turnos.length == 0 ? Container() : ListTurnoBuilder(turnos: turnos),
-          AddTurnoInkWell(refreshTurnoList: refreshTurnoList),
-        ],
+      body: _selectedIndex == 0 ? _escalaGroupListView() : Center(child: Text("Horários"),),
+      bottomNavigationBar: EscalaBottomNavigation(
+        refreshBottomNavigation: refreshBottomNavigation,
       ),
     );
   }
+
+  Widget _escalaGroupListView() {
+    return ListView(
+      shrinkWrap: true,
+      children: <Widget>[
+        EscalaNameContainer(escalaNameRefresh: refreshEscalaName),
+        turnos.length == 0 ? Container() : ListTurnoBuilder(turnos: turnos),
+        AddTurnoInkWell(refreshTurnoList: refreshTurnoList),
+      ],
+    );
+  }
+
+  refreshEscalaName(String escalaName) => escala.name = escalaName;
+
+  refreshTurnoList(Turno turno) => setState(() {
+    turnos.add(turno);
+    escala.turnos = turnos;
+  });
+
+  refreshBottomNavigation(int selectIndex) =>
+      setState(() => _selectedIndex = selectIndex);
 }
