@@ -2,8 +2,6 @@ import 'package:ccms/backend/services/user_group_management.dart';
 import 'package:ccms/frontend/widgets/creation_group_widgets/stream_builder_group.dart';
 import 'package:flutter/material.dart';
 
-import 'group_creation_page.dart';
-
 class GroupPage extends StatefulWidget {
   @override
   _GroupPageState createState() => _GroupPageState();

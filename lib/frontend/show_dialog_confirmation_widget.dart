@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class PersonalAlertDialog{
 
- AlertDialog showCofirmationDialog({BuildContext context, String message, Future<void> confirmationFunction}){
+showCofirmationDialog({BuildContext context, String message, Future<void> confirmationFunction}){
    ///Receives a context, a message and a function to run after press confirm button.
 
    Widget _cancelButton = FlatButton(
@@ -16,7 +16,6 @@ class PersonalAlertDialog{
    Widget _confirmationButton = FlatButton(
      child: Text('Confirmar'),
      onPressed:  () {
-       confirmationFunction;
        Navigator.of(context).pop();
      },
    );

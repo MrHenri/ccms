@@ -2,9 +2,6 @@
 import 'package:ccms/backend/models/type_driver.dart';
 import 'package:ccms/backend/models/user_type.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_format/date_format.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import '../models/user.dart';
 
 class UserManagement {

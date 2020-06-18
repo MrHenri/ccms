@@ -99,11 +99,9 @@ class _GroupEditorState extends State<GroupEditorPage>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(title: Text('Grupos'), backgroundColor: Colors.indigo,),
       body: _buildGroups(),
-
       );
   }
 }

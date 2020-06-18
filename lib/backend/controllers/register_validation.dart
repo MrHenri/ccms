@@ -89,6 +89,7 @@ class Validation {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(
               "Preencha adequadamente todos os campos")));
+              return false;
     }
 
   }

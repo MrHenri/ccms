@@ -1,4 +1,3 @@
-import 'package:ccms/backend/models/escala.dart';
 import 'package:flutter/material.dart';
 
 class EscalaNameContainer extends StatefulWidget {
