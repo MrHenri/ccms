@@ -1,5 +1,7 @@
 import 'package:ccms/backend/controllers/Login_validation.dart';
+import 'package:ccms/backend/controllers/register_validation.dart';
 import 'package:ccms/backend/models/user.dart';
+import 'package:ccms/backend/services/auth_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -33,12 +35,16 @@ class _LoginButtonState extends State<LoginButton> {
   }
 
   loginConfirm()async{
-    FirebaseUser user = await Login(context).signIn(widget.user);
+    FirebaseUser user = await Auth().signIn(widget.user);
     if (user != null) {
-
-      Scaffold.of(context).showSnackBar(
+      if(Validation().emailConfirmed(user) == null){
+        Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text("Email não confirmado")));
+      }else{
+        Scaffold.of(context).showSnackBar(
           SnackBar(content: Text("Login efetuado com sucesso")));
       Navigator.of(context).pushReplacementNamed('/home');
+      }
     } else {
       Scaffold.of(context)
           .showSnackBar(SnackBar(content: Text("Email ou Senha inválidos")));

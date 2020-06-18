@@ -1,4 +1,5 @@
 import 'package:ccms/backend/controllers/Login_validation.dart';
+import 'package:ccms/backend/services/auth_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -142,7 +143,7 @@ class _DrawerHomeState extends State<DrawerHome> {
 
   void logOut() {
     FirebaseAuth.instance.signOut().then((value) {
-      Login().signOut();
+      Auth().signOut();
       Navigator.pushReplacementNamed(context, '/login');
     }).catchError((e) {
       print(e);

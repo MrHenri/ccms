@@ -62,16 +62,8 @@ class Validation {
     }
   }
 
-  FirebaseUser emailConfirmed(FirebaseUser fireUser) {
-    if (fireUser.isEmailVerified) {
-      return fireUser;
-    }else{
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(
-              "Email não confirmado")));
-      return null;
-    }
-  }
+  FirebaseUser emailConfirmed(FirebaseUser fireUser) => fireUser.isEmailVerified ? fireUser : null;
+  
 
   bool generalValidation(String confirmPassword, BuildContext context) {
     bool validationPassword = this.isPasswordValid(confirmPassword, context);

@@ -1,6 +1,7 @@
 import 'package:ccms/backend/controllers/register_validation.dart';
 import 'package:ccms/backend/controllers/Login_validation.dart';
 import 'package:ccms/backend/models/user.dart';
+import 'package:ccms/backend/services/auth_user.dart';
 import 'package:flutter/material.dart';
 
 class AssignButton extends StatefulWidget {
@@ -35,7 +36,7 @@ class _AssignButtonState extends State<AssignButton> {
   }
 
   assign() async {
-    Login login = Login();
+    Auth login = Auth();
     Validation validation = Validation(user: widget.user);
 
     if (validation.generalValidation(widget.confirmPassword, context) == true) { //Validação de preenchimento correto dos dados
