@@ -27,6 +27,7 @@ dependencies:
   video_player: ^0.10.11+1
   chewie: ^0.9.10
   mobx: ^1.2.1
+  flutter_mobx: ^1.1.0
   time_range_picker: ^1.0.1
 
 
@@ -35,9 +36,10 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+  mobx_codegen: 
+  build_runner: 
   flutter_test:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

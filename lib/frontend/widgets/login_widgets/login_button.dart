@@ -1,26 +1,24 @@
 import 'package:ccms/backend/controllers/register_validation.dart';
 import 'package:ccms/backend/models/user.dart';
 import 'package:ccms/backend/services/auth_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class AssignButton extends StatefulWidget {
-  final User user;
-  final String confirmPassword;
+class LoginButton extends StatefulWidget {
 
-  const AssignButton({Key key, this.user, this.confirmPassword})
-      : super(key: key);
+  final User userLogin;
+
+  const LoginButton({Key key, this.userLogin}) : super(key: key);
 
   @override
-  _AssignButtonState createState() => _AssignButtonState();
+  _LoginButtonState createState() => _LoginButtonState();
 }
 
-class _AssignButtonState extends State<AssignButton> {
-  Validation validation = Validation();
-
+class _LoginButtonState extends State<LoginButton> {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      onPressed: () => _assign(),
+      onPressed: () => _loginConfirm(),
       padding: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90)),
       elevation: 12,
@@ -36,7 +34,7 @@ class _AssignButtonState extends State<AssignButton> {
           borderRadius: BorderRadius.circular(90),
         ),
         child: Text(
-          "CADASTRAR",
+          "LOGIN",
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -48,19 +46,20 @@ class _AssignButtonState extends State<AssignButton> {
     );
   }
 
-  _assign() async {
-    Auth login = Auth();
-    Validation validation = Validation(user: widget.user);
-
-    if (validation.generalValidation(widget.confirmPassword, context) == true) { //Validação de preenchimento correto dos dados
-      if (await login.signUp(widget.user) != null) { //Validação de Email
-        Navigator.pop(context);
+  _loginConfirm()async{
+    FirebaseUser user = await Auth().signIn(widget.userLogin);
+    if (user != null) {
+      if(Validation().emailConfirmed(user) == null){
         Scaffold.of(context).showSnackBar(
-            SnackBar(content: Text("Cadastro efetuado com sucesso")));
-      } else {
+            SnackBar(content: Text("Email não confirmado")));
+      }else{
         Scaffold.of(context).showSnackBar(
-            SnackBar(content: Text("Email já cadastrado ou Inválido")));
+            SnackBar(content: Text("Login efetuado com sucesso")));
+        Navigator.of(context).pushReplacementNamed('/home');
       }
+    } else {
+      Scaffold.of(context)
+          .showSnackBar(SnackBar(content: Text("Email ou Senha inválidos")));
     }
   }
 }
