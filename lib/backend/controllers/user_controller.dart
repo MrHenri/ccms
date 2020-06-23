@@ -3,7 +3,6 @@ import 'package:ccms/backend/models/user.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-
 part 'user_controller.g.dart';
 
 class UserController = UserControllerBase with _$UserController;
@@ -36,7 +35,7 @@ abstract class UserControllerBase with Store {
   @action
   setPassword(String newPassword) {
     user.password = newPassword;
-    colorPassword = secondPassword == user.password ? Colors.green : Colors.red;
+    colorPassword = secondPassword == user.password && secondPassword.length >= 6 ? Colors.green : Colors.red;
   }
 
   @action

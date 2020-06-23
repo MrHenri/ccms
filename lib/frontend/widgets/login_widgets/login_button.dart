@@ -1,27 +1,30 @@
-import 'package:ccms/backend/controllers/register_validation.dart';
-import 'package:ccms/backend/models/user.dart';
-import 'package:ccms/backend/services/auth_user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ccms/backend/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 
 class LoginButton extends StatefulWidget {
 
-  final User userLogin;
+  final LoginController loginController;
 
-  const LoginButton({Key key, this.userLogin}) : super(key: key);
+  const LoginButton({Key key, this.loginController}) : super(key: key);
 
   @override
-  _LoginButtonState createState() => _LoginButtonState();
+  _LoginButtonState createState() => _LoginButtonState(this.loginController);
 }
 
 class _LoginButtonState extends State<LoginButton> {
+
+  LoginController loginController = LoginController();
+
+  _LoginButtonState(this.loginController);
+
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
+      highlightElevation: 12,
       onPressed: () => _loginConfirm(),
       padding: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(90)),
-      elevation: 12,
+      elevation: 6,
       child: Container(
         height: 50,
         width: MediaQuery.of(context).size.width / 1.8,
@@ -47,19 +50,9 @@ class _LoginButtonState extends State<LoginButton> {
   }
 
   _loginConfirm()async{
-    FirebaseUser user = await Auth().signIn(widget.userLogin);
-    if (user != null) {
-      if(Validation().emailConfirmed(user) == null){
-        Scaffold.of(context).showSnackBar(
-            SnackBar(content: Text("Email não confirmado")));
-      }else{
-        Scaffold.of(context).showSnackBar(
-            SnackBar(content: Text("Login efetuado com sucesso")));
-        Navigator.of(context).pushReplacementNamed('/home');
-      }
-    } else {
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text("Email ou Senha inválidos")));
-    }
+    String message = await loginController.loginConfirm();
+    message == "Logado com Sucesso" ?
+        Navigator.of(context).pushReplacementNamed('/home') :
+        Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 }

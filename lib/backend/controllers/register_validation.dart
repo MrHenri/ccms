@@ -1,6 +1,5 @@
 import 'package:ccms/backend/models/type_driver.dart';
 import 'package:ccms/backend/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -62,10 +61,8 @@ class Validation {
     }
   }
 
-  FirebaseUser emailConfirmed(FirebaseUser fireUser) => fireUser.isEmailVerified ? fireUser : null;
-  
-
   bool generalValidation(String confirmPassword, BuildContext context) {
+
     bool validationPassword = this.isPasswordValid(confirmPassword, context);
     bool validationTypeDriver = user.typeDriver.index != 0 ? true : false;
 

@@ -4,7 +4,7 @@ import 'package:ccms/backend/services/user_management.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class BaseAuth {
-  Future<FirebaseUser> signIn(User user);
+  Future<FirebaseUser> signIn(String email, String password);
   Future<FirebaseUser> signUp(User user);
   void signOut();
 }
@@ -31,10 +31,10 @@ class Auth implements BaseAuth {
   }
 
   @override
-  Future<FirebaseUser> signIn(User user) async{
+  Future<FirebaseUser> signIn(String email, String password) async{
     try {
       AuthResult auth = await _firebaseAuth.signInWithEmailAndPassword(
-          email: user.email.trim(), password: user.password);
+          email: email.trim(), password: password);
       return auth.user;
     } catch (e) {
       print(e);

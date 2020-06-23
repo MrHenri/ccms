@@ -1,3 +1,4 @@
+import 'package:ccms/backend/controllers/login_controller.dart';
 import 'package:ccms/backend/controllers/user_controller.dart';
 import 'package:ccms/frontend/widgets/login_widgets/login_button.dart';
 import 'package:ccms/frontend/widgets/login_widgets/others/divider_text.dart';
@@ -6,6 +7,7 @@ import 'package:ccms/frontend/widgets/login_widgets/buttons/text/forgot_password
 import 'package:ccms/frontend/widgets/login_widgets/image/image_login.dart';
 import 'package:ccms/frontend/widgets/login_widgets/padding/register_padding.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,12 +16,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  Color color = Colors.grey;
+  //UserController userController = UserController();
+  LoginController loginController = LoginController();
 
-  UserController userController = UserController();
   @override
   Widget build(BuildContext context) {
-    // User user = User(email: watchEmail.text, password: watchPassword.text);
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -48,10 +49,10 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: "Email",
-                    icon: Icon(Icons.email, color: color),
+                    icon: Observer(builder: (_) => Icon(Icons.email, color: loginController.colorEmail)),
                   ),
                   keyboardType: TextInputType.emailAddress,
-                  onChanged: userController.setEmail,
+                  onChanged: loginController.setEmail,
                 ),
               ),
               SizedBox(height: 24),
@@ -61,15 +62,15 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: "Senha",
-                  icon: Icon(Icons.vpn_key, color: color),
+                  icon: Observer(builder: (_) => Icon(Icons.vpn_key, color: loginController.colorPassword)),
                 ),
                 obscureText: true,
-                onChanged: userController.setPassword,
+                onChanged: loginController.setPassword,
               )),
               ForgotPasswordContainer(),
 
               //Login Button
-              LoginButton(userLogin: userController.user,),
+              Observer(builder:(_) => LoginButton(loginController: loginController,)),
               SizedBox(height: 40,),
               //ButtonCustomizedContainer(text: "LOGIN"),
               DividerText(),
