@@ -3,6 +3,7 @@ import 'package:ccms/backend/services/user_management.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class StreamBuilderGroup extends StatefulWidget {
   @override
@@ -10,12 +11,13 @@ class StreamBuilderGroup extends StatefulWidget {
 }
 
 class _StreamBuilderGroupState extends State<StreamBuilderGroup> {
-  final snapshotGroup = UserGroupManagement().snapshotGroups();
 
   @override
   Widget build(BuildContext context) {
+    final userGroupService = Provider.of<UserGroupManagement>(context);
+    final leaderStream = Provider.of<UserManagement>(context).snapshotLeaders();
     return StreamBuilder(
-        stream: snapshotGroup,
+        stream: userGroupService.snapshotGroups(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
@@ -30,24 +32,25 @@ class _StreamBuilderGroupState extends State<StreamBuilderGroup> {
                 itemBuilder: (context, index) {
                   DocumentSnapshot groupSnapshot =
                       snapshot.data.documents[index];
-                  return Card(
-                    margin: EdgeInsets.all(8),
-                    elevation: 2.0,
-                    child: ListTile(
-                        title: Text('${groupSnapshot.data['group_name']}'),
-                        subtitle: FutureBuilder(
-                          future: returnName(groupSnapshot),
-                          initialData: "Loading leader...",
-                          builder:
-                              (BuildContext context, AsyncSnapshot<String> text) {
-                            return Text(text.data);
-                          },
+                  return InkWell(
+                    onTap: (){},
+                    child: Card(
+                      margin: EdgeInsets.all(8),
+                      elevation: 2.0,
+                      child: ListTile(
+                          title: Text('${groupSnapshot.data['group_name']}'),
+                          subtitle: StreamBuilder(
+                            stream: leaderStream,
+                            builder: (BuildContext context, AsyncSnapshot snapshot){
+                              return Text("Líder: ${snapshot.data.document(groupSnapshot.data['group_leader'])}");
+                            },
+                          ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: (){UserGroupManagement().deleteGroupFromSnapshot(groupSnapshot);},
                         ),
-                      trailing: IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: (){UserGroupManagement().deleteGroupFromSnapshot(groupSnapshot);},
-                      ),
 
+                      ),
                     ),
                   );
                 },
