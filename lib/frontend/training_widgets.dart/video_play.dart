@@ -32,7 +32,7 @@ class _VideoPlayState extends State<VideoPlay> {
     autoInitialize: true,
     autoPlay: true,
     allowFullScreen: true,
-    fullScreenByDefault: true,
+    fullScreenByDefault: false,
     showControls: true,
     looping: widget.looping,
     errorBuilder: (context, errorMessage) {
